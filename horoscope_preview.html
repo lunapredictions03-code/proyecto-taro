@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseños de Horóscopo Móvil</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #1a0f3f;
+            --color-card-bg: rgba(255, 255, 255, 0.05);
+            --color-text: #ffffff;
+            --color-accent: #D4AF37;
+            /* Gold */
+            --color-accent-2: #8B5CF6;
+            /* Purple */
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        body {
+            background-color: #0d0620;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--color-accent);
+            font-family: var(--font-heading);
+            margin-bottom: 40px;
+        }
+
+        .design-section {
+            margin-bottom: 80px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 40px;
+        }
+
+        .design-title {
+            color: var(--color-accent-2);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 10px;
+        }
+
+        /* DESIGN 1: THE MYSTIC CARD (Current/Enhanced) */
+        .design-1-container {
+            background: linear-gradient(135deg, #2a1b55 0%, #170b36 100%);
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .d1-card {
+            width: 200px;
+            height: 320px;
+            background-image: url('https://images.unsplash.com/photo-1634913227443-4e4277fa483d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');
+            /* Tarot placeholder */
+            background-size: cover;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .d1-content i {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin: 10px;
+        }
+
+        .d1-stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .d1-stat-pill {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* DESIGN 2: "STORY" SWIPABLE CARDS */
+        .design-2-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .d2-card {
+            min-width: 280px;
+            background: #251845;
+            border-radius: 25px;
+            padding: 25px;
+            scroll-snap-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            position: relative;
+        }
+
+        .d2-card.love {
+            border-top: 5px solid #ec4899;
+        }
+
+        .d2-card.work {
+            border-top: 5px solid #f59e0b;
+        }
+
+        .d2-card.money {
+            border-top: 5px solid #10b981;
+        }
+
+        .d2-icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* DESIGN 3: MINIMAL LIST ACCORDION */
+        .design-3-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .d3-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .d3-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(10px);
+        }
+
+        .d3-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #b8860b 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #1a0f3f;
+            margin-right: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .d3-text h4 {
+            margin: 0 0 5px 0;
+            color: var(--color-accent);
+            font-family: var(--font-heading);
+        }
+
+        .d3-text p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Conceptos de Diseño Móvil</h1>
+    <p style="text-align:center; opacity:0.7; margin-bottom:50px;">Ábrelo en tu celular o en modo inspección</p>
+
+    <!-- OPCION 4 (NUEVA Petición) -->
+    <div class="design-section" style="border-bottom:none; margin-bottom: 0;">
+        <div class="design-title">Opción 4: Carrusel de Cartas (Tu Idea)</div>
+        <p style="text-align:center; margin-bottom:20px; color:rgba(255,255,255,0.6)">Desliza para ver tus 3 cartas del
+            día</p>
+
+        <div class="design-2-container" style="gap:20px; padding:0 20px 40px;">
+
+            <!-- CARTA 1: GENERAL -->
+            <div class="design-1-container" style="min-width:300px; scroll-snap-align:center;">
+                <h3 style="color:#D4AF37; font-family:'Cinzel'; margin-top:0;">Carta del Día</h3>
+                <div class="d1-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1634913227443-4e4277fa483d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');">
+                </div>
+                <h4 style="margin:0 0 10px; color:white;">La Emperatriz</h4>
+                <p style="font-size:0.9rem;">"Hoy irradias creatividad y magnetismo."</p>
+            </div>
+
+            <!-- CARTA 2: AMOR -->
+            <div class="design-1-container" style="min-width:300px; scroll-snap-align:center; border-color: #ec4899;">
+                <h3 style="color:#ec4899; font-family:'Cinzel'; margin-top:0;">Amor</h3>
+                <div class="d1-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1590845947698-8924d7409b56?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'); border-color:#ec4899;">
+                </div>
+                <h4 style="margin:0 0 10px; color:white;">Los Enamorados</h4>
+                <p style="font-size:0.9rem;">"Una decisión importante en el corazón."</p>
+            </div>
+
+            <!-- CARTA 3: TRABAJO -->
+            <div class="design-1-container" style="min-width:300px; scroll-snap-align:center; border-color: #f59e0b;">
+                <h3 style="color:#f59e0b; font-family:'Cinzel'; margin-top:0;">Trabajo</h3>
+                <div class="d1-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1590845947676-fa2576f401b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'); border-color:#f59e0b;">
+                </div>
+                <h4 style="margin:0 0 10px; color:white;">El Mago</h4>
+                <p style="font-size:0.9rem;">"Tienes todas las herramientas para triunfar."</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- OPCION 1 (Anterior) -->
+    <div class="design-section">
+        <div class="design-title">Opción 1: Místico & Central (Anterior)</div>
+        <div class="design-1-container">
+            <h3 style="color:#D4AF37; font-family:'Cinzel'; margin-top:0;">La Emperatriz</h3>
+            <div class="d1-card"></div>
+            <p>"Hoy tu creatividad florece. Es un momento ideal para iniciar proyectos nuevos y conectar con tu lado
+                artístico."</p>
+            <div class="d1-stats">
+                <div class="d1-stat-pill"><i class="fas fa-heart" style="color:#ec4899"></i> Amor 80%</div>
+                <div class="d1-stat-pill"><i class="fas fa-briefcase" style="color:#f59e0b"></i> Trabajo 95%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPCION 2 -->
+    <div class="design-section">
+        <div class="design-title">Opción 2: Carrusel "Story"</div>
+        <div class="design-2-container">
+            <div class="d2-card love">
+                <div class="d2-icon-circle"><i class="fas fa-heart" style="color:#ec4899"></i></div>
+                <h3 style="font-family:'Cinzel'; margin:0">Amor</h3>
+                <p>"La conexión espiritual con tu pareja se intensifica."</p>
+                <span style="font-size:0.8rem; opacity:0.5; margin-top:10px;">Desliza -></span>
+            </div>
+            <!-- ... -->
+        </div>
+    </div>
+
+    <!-- OPCION 3 -->
+    <div class="design-section">
+        <div class="design-title">Opción 3: Lista Moderna</div>
+        <div class="design-3-container">
+            <div class="d3-item">
+                <div class="d3-icon"><i class="fas fa-heart"></i></div>
+                <div class="d3-text">
+                    <h4>Amor & Relaciones</h4>
+                    <p>Un encuentro inesperado traerá alegría.</p>
+                </div>
+            </div>
+            <!-- ... -->
+        </div>
+    </div>
+
+</body>
+
+</html>

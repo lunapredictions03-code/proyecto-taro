@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Portal Espiral Místico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a40 0%, #2d1b69 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #D4AF37;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .demo-button {
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #D4AF37 0%, #f0d068 100%);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a0f3f;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.1);
+        }
+
+        .portal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .portal-spiral {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: conic-gradient(from 0deg,
+                    #D4AF37 0%,
+                    #8B5CF6 25%,
+                    #EC4899 50%,
+                    #D4AF37 75%,
+                    #D4AF37 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            opacity: 0;
+            box-shadow: 0 0 100px rgba(212, 175, 55, 0.8);
+        }
+
+        .portal-spiral.active {
+            animation: portalSpiral 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes portalSpiral {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(3) rotate(720deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(20) rotate(1440deg);
+                opacity: 0;
+            }
+        }
+
+        .destination {
+            display: none;
+            text-align: center;
+        }
+
+        .destination.show {
+            display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .destination h2 {
+            color: #D4AF37;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .destination p {
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="start">
+        <h1>Opción 1: Portal Espiral Místico</h1>
+        <button class="demo-button" onclick="activatePortal()">Click para Ver Animación</button>
+    </div>
+
+    <div class="portal-overlay">
+        <div class="portal-spiral" id="portal"></div>
+    </div>
+
+    <div class="destination" id="destination">
+        <h2>✨ ¡Horóscopos! ✨</h2>
+        <p>Portal espiral giratorio - Duración: 1.5s</p>
+        <button class="demo-button" onclick="location.reload()" style="margin-top: 2rem;">Ver Otra Vez</button>
+    </div>
+
+    <script>
+        function activatePortal() {
+            const portal = document.getElementById('portal');
+            const start = document.getElementById('start');
+            const destination = document.getElementById('destination');
+
+            portal.classList.add('active');
+
+            setTimeout(() => {
+                start.style.display = 'none';
+            }, 750);
+
+            setTimeout(() => {
+                destination.classList.add('show');
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

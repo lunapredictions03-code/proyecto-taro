@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estilos de Cartas de Horóscopo - Demo</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f0f12;
+            --text-gold: #d4af37;
+            --text-light: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--text-gold);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .styles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .style-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .style-label {
+            font-family: 'Cinzel', serif;
+            color: #888;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        /* Base Card Dimensions */
+        .card {
+            width: 300px;
+            height: 480px;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* =========================================
+           ESTILO 1: REFERENCIA (La Imagen)
+           "Geometría Sagrada"
+           ========================================= */
+        .card-referencia {
+            background-color: #2a1b3d;
+            /* Púrpura oscuro */
+            border: 2px solid #e5c57f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: 0 0 0 5px #2a1b3d, 0 0 0 7px #e5c57f;
+            /* Doble borde truco */
+            color: #e5c57f;
+        }
+
+        .ref-corners::before,
+        .ref-corners::after {
+            content: '•';
+            position: absolute;
+            font-size: 30px;
+            color: #e5c57f;
+            line-height: 0;
+        }
+
+        .ref-corners::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        .ref-corners::after {
+            bottom: 15px;
+            right: 15px;
+        }
+
+        .ref-corners-2::before,
+        .ref-corners-2::after {
+            content: '•';
+            position: absolute;
+            font-size: 30px;
+            color: #e5c57f;
+            line-height: 0;
+        }
+
+        .ref-corners-2::before {
+            top: 15px;
+            right: 15px;
+        }
+
+        .ref-corners-2::after {
+            bottom: 15px;
+            left: 15px;
+        }
+
+        .ref-top-deco {
+            display: flex;
+            gap: 10px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .ref-symbol {
+            font-size: 5rem;
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        .ref-constellation {
+            font-size: 6rem;
+            /* Simulado con icono */
+            opacity: 0.8;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 5px rgba(229, 197, 127, 0.5));
+        }
+
+        .ref-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e5c57f;
+            border-top: 1px solid #e5c57f;
+            padding: 5px 20px;
+            margin-bottom: 20px;
+        }
+
+        .ref-constellation-dots {
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+        }
+
+
+        /* =========================================
+           ESTILO 2: GLASSMORPHISM ELEVADO
+           "Cristal Místico"
+           ========================================= */
+        .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .card-glass::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 60%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .glass-content {
+            z-index: 2;
+            text-align: center;
+        }
+
+        .glass-symbol {
+            font-size: 6rem;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(165, 180, 252, 0.5));
+        }
+
+        .glass-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .glass-date {
+            color: #a5b4fc;
+            font-size: 0.9rem;
+        }
+
+
+        /* =========================================
+           ESTILO 3: TAROT CLÁSICO
+           "El Grimorio"
+           ========================================= */
+        .card-grimorio {
+            background: #1a1510;
+            border: 10px solid #8b5a2b;
+            /* Wooden border */
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+        }
+
+        .grimorio-inner {
+            border: 2px solid #d4af37;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .grimorio-image {
+            width: 180px;
+            height: 250px;
+            object-fit: contain;
+            filter: sepia(100%) hue-rotate(320deg);
+            /* Style filter */
+            margin-bottom: 20px;
+            border: 1px solid #d4af37;
+            padding: 10px;
+        }
+
+        .grimorio-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #d4af37;
+            font-style: italic;
+        }
+
+        .grimorio-number {
+            font-family: 'Cinzel', serif;
+            position: absolute;
+            top: 25px;
+            font-size: 1.5rem;
+            color: #8b5a2b;
+        }
+
+
+        /* =========================================
+           ESTILO 4: COSMOS
+           "Nebulosa"
+           ========================================= */
+        .card-nebula {
+            background: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .nebula-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') center/cover;
+            opacity: 0.6;
+            transition: transform 0.5s;
+        }
+
+        .card-nebula:hover .nebula-bg {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .nebula-content {
+            z-index: 2;
+            text-align: center;
+            background: linear-gradient(to top, black 20%, transparent);
+            width: 100%;
+            padding-top: 50px;
+        }
+
+        .nebula-symbol {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 0 0 10px #f0f;
+            margin-bottom: 10px;
+        }
+
+        .nebula-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fdfbfb, #ebedee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Selecciona tu Diseño Favorito</h1>
+
+    <div class="styles-container">
+
+        <!-- ESTILO 1 -->
+        <div class="style-group">
+            <span class="style-label">Opción 1: Geometría Sagrada (Referencia)</span>
+            <div class="card card-referencia">
+                <div class="ref-corners"></div>
+                <div class="ref-corners-2"></div>
+
+                <div class="ref-top-deco">
+                    <span>) )</span> <span>●</span> <span>( (</span>
+                </div>
+
+                <div class="ref-symbol">♏</div>
+
+                <i class="fas fa-spider ref-constellation"></i>
+
+                <div class="ref-title">Scorpio</div>
+
+                <div class="ref-constellation-dots">
+                    ✨ • ✨ • ✨
+                </div>
+            </div>
+        </div>
+
+        <!-- ESTILO 2 -->
+        <div class="style-group">
+            <span class="style-label">Opción 2: Cristal Místico</span>
+            <div class="card card-glass">
+                <div class="glass-content">
+                    <div class="glass-symbol">♏</div>
+                    <div class="glass-title">Scorpio</div>
+                    <div class="glass-date">23 Oct - 21 Nov</div>
+                    <div style="margin-top: 30px; font-size: 1.5rem; color: #fff;">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ESTILO 3 -->
+        <div class="style-group">
+            <span class="style-label">Opción 3: Carta de Tarot Antigua</span>
+            <div class="card card-grimorio">
+                <div class="grimorio-inner">
+                    <span class="grimorio-number">XIII</span>
+                    <div class="grimorio-image">
+                        <!-- Placeholder for tarot illustration -->
+                        <div
+                            style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:4rem; color:#8b5a2b;">
+                            💀
+                        </div>
+                    </div>
+                    <div class="grimorio-title">La Muerte</div>
+                    <div style="font-size: 0.8rem; color: #d4af37; margin-top:5px;">TRANSFORMACIÓN</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ESTILO 4 -->
+        <div class="style-group">
+            <span class="style-label">Opción 4: Nebulosa Moderna</span>
+            <div class="card card-nebula">
+                <div class="nebula-bg"></div>
+                <div class="nebula-content">
+                    <div class="nebula-symbol">♏</div>
+                    <div class="nebula-title">Scorpio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

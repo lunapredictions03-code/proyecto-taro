@@ -1,0 +1,1409 @@
+/* =================================
+   ADMIN PANEL STYLES - GRIMORIO ANCESTRAL THEME
+   ================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Palette */
+    --bg-dark: #1a0f0a;
+    /* Dark wood/leather */
+    --parchment: #e3d5b8;
+    /* Old paper light */
+    --parchment-dark: #d4c5a5;
+    /* Old paper dark */
+    --ink: #2b1d16;
+    /* Dark brown ink */
+    --gold: #bd9b58;
+    /* Antique gold */
+    --gold-light: #e5c57f;
+    --burgundy: #661010;
+    /* Sealing wax red */
+    --burgundy-light: #8a1c1c;
+
+    /* Functional */
+    --primary: var(--burgundy);
+    --secondary: #4a3b32;
+    --success: #2d5a27;
+    --danger: #7a1515;
+    --warning: #b36b00;
+    --text-main: var(--ink);
+    --border: #c0b296;
+
+    /* Fonts */
+    --font-heading: 'MedievalSharp', cursive;
+    --font-body: 'Crimson Text', serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    /* Subtle wooden/leather texture effect */
+    background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 4px);
+    min-height: 100vh;
+    color: var(--text-main);
+    font-size: 18px;
+    /* Slightly larger for readability on archaic fonts */
+}
+
+/* =================================
+   LOGIN SCREEN
+   ================================= */
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: flex;
+}
+
+#login-screen {
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: radial-gradient(circle at center, #2c1a12 0%, #0f0805 100%);
+}
+
+.login-container {
+    background: var(--parchment);
+    border-radius: 4px;
+    padding: 3rem;
+    max-width: 450px;
+    width: 100%;
+    /* Double border "Book" effect */
+    border: 8px solid #3d261a;
+    box-shadow:
+        inset 0 0 60px rgba(71, 48, 25, 0.2),
+        /* Inner shadow (aged paper) */
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        /* Drop shadow */
+        0 0 0 2px #5c4033;
+    /* Outer thin border */
+    position: relative;
+    /* Simple noise texture replacement for SVG to avoid parsing errors */
+    background-image: radial-gradient(#e3d5b8 20%, transparent 20%),
+        radial-gradient(#e3d5b8 20%, transparent 20%);
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+}
+
+/* Decoración de esquinas doradas (CSS puro) */
+.login-container::before,
+.login-container::after {
+    content: '✦';
+    position: absolute;
+    color: var(--gold);
+    font-size: 24px;
+    pointer-events: none;
+}
+
+.login-container::before {
+    top: 10px;
+    left: 10px;
+}
+
+.login-container::after {
+    bottom: 10px;
+    right: 10px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 20px;
+}
+
+.login-header i {
+    font-size: 56px;
+    color: var(--burgundy);
+    margin-bottom: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.login-header h1 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--ink);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.login-header p {
+    color: var(--secondary);
+    font-style: italic;
+    font-size: 16px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--ink);
+    transition: all 0.3s ease;
+    box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: var(--burgundy);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to bottom, var(--burgundy-light), var(--burgundy));
+    color: var(--parchment);
+    border: 1px solid #3a0000;
+    border-radius: 50px;
+    /* Sello de cera style */
+    font-family: var(--font-heading);
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* =================================
+   ADMIN SCREEN & NAVIGATION
+   ================================= */
+
+#admin-screen {
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.admin-header {
+    background: #2a1b14;
+    border-bottom: 4px solid var(--gold);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+}
+
+.header-left i {
+    font-size: 32px;
+    color: var(--gold);
+}
+
+.header-left h2 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    color: var(--parchment);
+    text-shadow: 0 2px 4px black;
+    margin-left: 10px;
+}
+
+.admin-content {
+    display: flex;
+    flex: 1;
+    background: var(--bg-dark);
+}
+
+/* Sidebar "Book Spine" */
+.sidebar {
+    width: 260px;
+    background: #23140e;
+    /* Darker spine */
+    border-right: 2px solid #3d261a;
+    padding: 20px 0;
+    box-shadow: inset -5px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* =================================
+   MOBILE STYLES (Bottom Nav & Responsive)
+   ================================= */
+
+.bottom-nav {
+    display: none;
+    /* Hidden by default (desktop) */
+}
+
+.mobile-drawer,
+.mobile-drawer-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    /* Hide Sidebars and Destkop elements */
+    .sidebar {
+        display: none;
+    }
+
+    .header-right {
+        display: none;
+        /* Hide top logout/save buttons, move them to better place or keep them? 
+                          User said "just move structure". Top buttons are important.
+                          Let's keep header-right but maybe compact it. */
+    }
+
+    /* Wait, we need Save/Logout. Let's keep .header-right but adjust layout */
+    .header-right {
+        display: flex;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+        gap: 5px;
+    }
+
+    .header-right span {
+        display: none;
+        /* Hide text labels of buttons on mobile */
+    }
+
+    .btn {
+        padding: 5px 10px;
+        /* Smaller buttons */
+    }
+
+    .header-left h2 {
+        font-size: 18px;
+        /* Smaller title */
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Main Layout adjustments */
+    body {
+        padding-bottom: 70px;
+        /* Space for bottom nav */
+    }
+
+    .admin-content {
+        flex-direction: column;
+    }
+
+    .editor-container {
+        padding: 15px;
+    }
+
+    /* Bottom Nav Styles */
+    .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background: #23140e;
+        /* Dark wood match */
+        border-top: 3px solid #3d261a;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .bottom-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #8d6e63;
+        font-family: var(--font-heading);
+        font-size: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        height: 100%;
+    }
+
+    .bottom-nav-item i {
+        font-size: 20px;
+        margin-bottom: 4px;
+        color: #a1887f;
+    }
+
+    .bottom-nav-item.active {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .bottom-nav-item.active i {
+        color: var(--gold);
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .bottom-nav-item.active span {
+        color: var(--parchment);
+    }
+
+    /* Drawer Styles */
+    .mobile-drawer-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        backdrop-filter: blur(2px);
+    }
+
+    .mobile-drawer-overlay.active {
+        display: block;
+    }
+
+    .mobile-drawer {
+        display: block;
+        position: fixed;
+        bottom: -100%;
+        /* Hidden below */
+        left: 0;
+        width: 100%;
+        background: var(--parchment);
+        border-top: 5px solid var(--burgundy);
+        border-radius: 20px 20px 0 0;
+        padding: 20px;
+        z-index: 2001;
+        transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-drawer.active {
+        bottom: 0;
+        /* Slide up */
+    }
+
+    .drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 10px;
+    }
+
+    .drawer-header h3 {
+        font-family: var(--font-heading);
+        color: var(--burgundy);
+        margin: 0;
+    }
+
+    .drawer-item {
+        padding: 15px;
+        font-family: var(--font-heading);
+        font-size: 18px;
+        color: var(--ink);
+        border-bottom: 1px dashed var(--border);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+    }
+
+    .drawer-item:last-child {
+        border-bottom: none;
+    }
+
+    .drawer-item:active {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Force single column for admin grid on mobile */
+    .admin-grid-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+.tab-btn {
+    width: 100%;
+    padding: 18px 25px;
+    background: transparent;
+    border: none;
+    border-left: 4px solid transparent;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    color: #a89f91;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--parchment);
+}
+
+.tab-btn.active {
+    background: linear-gradient(90deg, rgba(128, 0, 32, 0.3), transparent);
+    border-left-color: var(--gold);
+    color: var(--gold);
+}
+
+.tab-btn i {
+    width: 24px;
+    text-align: center;
+}
+
+/* =================================
+   CONTENT & PANELS
+   ================================= */
+
+.editor-container {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    /* Background pattern like a dark desk pad */
+    background-image: radial-gradient(#3d261a 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.tab-content {
+    display: none;
+    background: var(--parchment);
+    padding: 30px;
+    /* Paper styling */
+    box-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 0, 0, 0.1) inset;
+    border: 1px solid #d4c5a5;
+    position: relative;
+    /* Torn paper edge effect (simplified via border-radius) */
+    border-radius: 2px;
+    margin-bottom: 30px;
+}
+
+/* Torn effect top/bottom via CSS clipping - optional, keeping simple for robustness */
+
+.tab-content.active {
+    display: block;
+    animation: fadeInPage 0.5s ease-out;
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content h3 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--burgundy);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.tab-content h3 i {
+    margin-right: 15px;
+}
+
+/* =================================
+   FORMS & INPUTS (Ink & Quill style)
+   ================================= */
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    font-family: var(--font-heading);
+    color: var(--burgundy);
+    /* Highlight labels */
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    border-radius: 4px;
+    /* Slightly softer edges */
+    padding: 12px 15px;
+    font-family: var(--font-body);
+    font-size: 19px;
+    /* Clearer reading */
+    color: var(--ink);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(189, 155, 88, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    outline: none;
+    transform: scale(1.01);
+    /* Subtle lift */
+}
+
+textarea.form-control {
+    background-image: linear-gradient(transparent 96%, rgba(0, 0, 0, 0.05) 97%);
+    background-size: 100% 30px;
+    /* Writing lines effect */
+    line-height: 30px;
+    padding-top: 5px;
+}
+
+/* =================================
+   BUTTONS (Wax Seals & Metallic)
+   ================================= */
+
+/* General Button Styles */
+button {
+    cursor: pointer;
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add shimmer effect to buttons */
+button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+button:hover::after {
+    left: 100%;
+}
+
+.btn-add,
+.btn-success {
+    background: linear-gradient(135deg, #2d5a27 0%, #1e3a1a 100%);
+    border: 2px solid #a4b3a2;
+    color: #f1f8e9;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.btn-add:hover,
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    filter: brightness(1.1);
+    border-color: #c8e6c9;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #5d4037 0%, #3e2723 100%);
+    border: 2px solid #8d6e63;
+    color: var(--parchment);
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.btn-delete,
+.btn-logout,
+.btn-danger {
+    background: linear-gradient(135deg, #8a1c1c 0%, #661010 100%);
+    border: 2px solid #b71c1c;
+    color: #ffebee;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-delete:hover,
+.btn-logout:hover,
+.btn-danger:hover {
+    background: linear-gradient(135deg, #b71c1c 0%, #7f0000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* =================================
+   CARDS & LISTS
+   ================================= */
+
+.item-card {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.item-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.item-header h5 {
+    font-family: var(--font-heading);
+    color: var(--burgundy);
+    margin: 0;
+    font-size: 20px;
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit {
+    background: var(--gold);
+    color: var(--ink);
+}
+
+.btn-edit:hover {
+    background: var(--gold-light);
+    transform: scale(1.05);
+}
+
+
+/* =================================
+   ADMIN GRID LAYOUT (Responsive)
+   ================================= */
+.admin-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* =================================
+   SERVICIOS GRID (Tarjetas Premium Admin)
+   ================================= */
+
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.servicio-admin-card {
+    background: linear-gradient(135deg, #f5f0e6 0%, #e8ddc5 100%);
+    border: 3px solid var(--gold);
+    border-radius: 15px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.servicio-admin-card:hover {
+    transform: translateY(-8px) rotateY(3deg);
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border-color: var(--burgundy);
+}
+
+.servicio-admin-card.featured {
+    border-color: var(--burgundy);
+    box-shadow: 0 10px 25px rgba(138, 28, 28, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.servicio-admin-card.featured::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--burgundy), var(--gold), var(--burgundy));
+    z-index: 1;
+}
+
+.servicio-card-header {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, transparent 100%);
+    padding: 25px 20px 20px;
+    border-bottom: 2px solid rgba(189, 155, 88, 0.3);
+    text-align: center;
+    position: relative;
+}
+
+/* Featured Badge */
+.servicio-featured-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--burgundy);
+    color: var(--parchment);
+    font-family: var(--font-heading);
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.servicio-card-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    background: linear-gradient(135deg, var(--burgundy-light), var(--burgundy));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--gold);
+}
+
+.servicio-card-icon i {
+    font-size: 32px;
+    color: var(--parchment);
+}
+
+.servicio-card-title {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    color: var(--burgundy);
+    margin: 0 0 8px 0;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    letter-spacing: 1px;
+}
+
+.servicio-card-precio {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: bold;
+    margin: 8px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.servicio-card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.servicio-card-description {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.servicio-card-duracion {
+    font-size: 14px;
+    color: var(--secondary);
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.servicio-card-duracion i {
+    color: var(--gold);
+}
+
+.servicio-card-features {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(189, 155, 88, 0.3);
+}
+
+.servicio-feature-item {
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.servicio-feature-item i {
+    color: var(--gold);
+    font-size: 10px;
+}
+
+.servicio-card-actions {
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.03);
+    border-top: 2px solid rgba(189, 155, 88, 0.3);
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.servicio-card-actions button {
+    flex: 1;
+    padding: 10px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.servicio-btn-edit {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: var(--ink);
+    border: 1px solid #a68a44;
+}
+
+.servicio-btn-edit:hover {
+    background: linear-gradient(135deg, #fff, var(--gold-light));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.servicio-btn-delete {
+    background: linear-gradient(135deg, #c44, #a22);
+    color: white;
+}
+
+.servicio-btn-delete:hover {
+    background: linear-gradient(135deg, #e55, #c33);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* =================================
+   BLOG TAROT GRID (Opción 3)
+   ================================= */
+
+.blog-tarot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.blog-tarot-card {
+    aspect-ratio: 2/3;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    border: 2px solid #d4af37;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: default;
+}
+
+.blog-tarot-card:hover {
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+    border-color: #fff;
+}
+
+.blog-tarot-card .card-content {
+    position: relative;
+    z-index: 2;
+    padding: 25px;
+    background: linear-gradient(to top, rgba(15, 8, 20, 0.95) 0%, rgba(15, 8, 20, 0.7) 40%, transparent 100%);
+    color: white;
+}
+
+.blog-tarot-card .blog-date {
+    font-size: 0.8rem;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.blog-tarot-card .blog-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.blog-tarot-card .blog-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-tarot-edit {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-tarot-edit:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.btn-tarot-delete {
+    background: #8a1c1c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-tarot-delete:hover {
+    background: #ff4d4d;
+    transform: scale(1.1);
+}
+
+.blog-tarot-card::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+/* =================================
+   HOROSCOPE GRID (Tarot Card Style)
+   ================================= */
+
+.horoscopo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.mystical-card {
+    aspect-ratio: 2/3;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #2a1b3d;
+    /* Fondo místico oficial */
+}
+
+.mystical-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(42, 27, 61, 0.4);
+    /* Slight tint if image is too bright */
+    transition: opacity 0.3s;
+}
+
+.mystical-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+    border-color: #fff;
+}
+
+.mystical-card.active {
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px #d4af37;
+    transform: scale(1.02);
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Cover full card for hover effect */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+}
+
+.mystical-card .symbol {
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.mystical-card .name {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* =================================
+   NOTIFICATION
+   ================================= */
+.notification {
+    background: var(--bg-dark);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 20px black;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #23140e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5d4037;
+    border: 1px solid #3e2723;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--burgundy);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 4px solid var(--gold);
+        justify-content: flex-start;
+        /* Permitir scroll horizontal si es necesario */
+    }
+
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .editor-container {
+        padding: 15px;
+    }
+}
+
+/* =================================
+   NEW BLOG SPLIT LAYOUT (Option 1)
+   ================================= */
+.blog-tarot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.card-split {
+    background: #2a1b14;
+    border: 1px solid #3d261a;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-split:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+    border-color: var(--gold);
+}
+
+.card-split .img-container {
+    height: 200px;
+    background-color: #111;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 2px solid var(--gold);
+}
+
+.card-split .content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-split h3 {
+    font-family: var(--font-heading);
+    color: var(--gold);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.card-split .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+/* =================================
+   POLISHED EDITOR UI
+   ================================= */
+.upload-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px dashed var(--gold);
+}
+
+.btn-upload-gold {
+    background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%);
+    color: #1a0f0a;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-upload-gold:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.img-preview-thumb {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.input-url-subtle {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #5d4037;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    padding: 5px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.input-url-subtle:focus {
+    outline: none;
+    border-bottom-color: var(--gold);
+    color: var(--white);
+}
+
+/* =================================
+   HOROSCOPE ZODIAC GRID (Option 1)
+   ================================= */
+.zodiac-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.zodiac-card {
+    background: #2a1b14;
+    border: 1px solid #3d261a;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.zodiac-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
+}
+
+.zodiac-card.active-sign {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, #2a1b14 0%, #3e2723 100%);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.zodiac-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.zodiac-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.zodiac-status {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.zodiac-status.done {
+    color: #4caf50;
+}
+
+/* INLINE EDITOR STYLES */
+.horoscope-editor-container {
+    background: #23140e;
+    border: 1px solid var(--gold);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    display: none;
+    /* Hidden by default */
+    animation: fadeIn 0.3s ease;
+}
+
+.horoscope-editor-container.active {
+    display: block;
+}
+
+.editor-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3d261a;
+    padding-bottom: 15px;
+}
+
+.editor-header h3 {
+    margin: 0;
+    color: var(--gold);
+    font-family: var(--font-heading);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

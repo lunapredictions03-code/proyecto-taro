@@ -1,0 +1,837 @@
+/* =================================
+   ADMIN PANEL STYLES - GRIMORIO ANCESTRAL THEME
+   ================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Palette */
+    --bg-dark: #1a0f0a;
+    /* Dark wood/leather */
+    --parchment: #e3d5b8;
+    /* Old paper light */
+    --parchment-dark: #d4c5a5;
+    /* Old paper dark */
+    --ink: #2b1d16;
+    /* Dark brown ink */
+    --gold: #bd9b58;
+    /* Antique gold */
+    --gold-light: #e5c57f;
+    --burgundy: #661010;
+    /* Sealing wax red */
+    --burgundy-light: #8a1c1c;
+
+    /* Functional */
+    --primary: var(--burgundy);
+    --secondary: #4a3b32;
+    --success: #2d5a27;
+    --danger: #7a1515;
+    --warning: #b36b00;
+    --text-main: var(--ink);
+    --border: #c0b296;
+
+    /* Fonts */
+    --font-heading: 'MedievalSharp', cursive;
+    --font-body: 'Crimson Text', serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    /* Subtle wooden/leather texture effect */
+    background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 4px);
+    min-height: 100vh;
+    color: var(--text-main);
+    font-size: 18px;
+    /* Slightly larger for readability on archaic fonts */
+}
+
+/* =================================
+   LOGIN SCREEN
+   ================================= */
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: flex;
+}
+
+#login-screen {
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: radial-gradient(circle at center, #2c1a12 0%, #0f0805 100%);
+}
+
+.login-container {
+    background: var(--parchment);
+    border-radius: 4px;
+    padding: 3rem;
+    max-width: 450px;
+    width: 100%;
+    /* Double border "Book" effect */
+    border: 8px solid #3d261a;
+    box-shadow:
+        inset 0 0 60px rgba(71, 48, 25, 0.2),
+        /* Inner shadow (aged paper) */
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        /* Drop shadow */
+        0 0 0 2px #5c4033;
+    /* Outer thin border */
+    position: relative;
+    /* Simple noise texture replacement for SVG to avoid parsing errors */
+    background-image: radial-gradient(#e3d5b8 20%, transparent 20%),
+        radial-gradient(#e3d5b8 20%, transparent 20%);
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+}
+
+/* Decoración de esquinas doradas (CSS puro) */
+.login-container::before,
+.login-container::after {
+    content: '✦';
+    position: absolute;
+    color: var(--gold);
+    font-size: 24px;
+    pointer-events: none;
+}
+
+.login-container::before {
+    top: 10px;
+    left: 10px;
+}
+
+.login-container::after {
+    bottom: 10px;
+    right: 10px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 20px;
+}
+
+.login-header i {
+    font-size: 56px;
+    color: var(--burgundy);
+    margin-bottom: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.login-header h1 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--ink);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.login-header p {
+    color: var(--secondary);
+    font-style: italic;
+    font-size: 16px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--ink);
+    transition: all 0.3s ease;
+    box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: var(--burgundy);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to bottom, var(--burgundy-light), var(--burgundy));
+    color: var(--parchment);
+    border: 1px solid #3a0000;
+    border-radius: 50px;
+    /* Sello de cera style */
+    font-family: var(--font-heading);
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* =================================
+   ADMIN SCREEN & NAVIGATION
+   ================================= */
+
+#admin-screen {
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.admin-header {
+    background: #2a1b14;
+    border-bottom: 4px solid var(--gold);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+}
+
+.header-left i {
+    font-size: 32px;
+    color: var(--gold);
+}
+
+.header-left h2 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    color: var(--parchment);
+    text-shadow: 0 2px 4px black;
+    margin-left: 10px;
+}
+
+.admin-content {
+    display: flex;
+    flex: 1;
+    background: var(--bg-dark);
+}
+
+/* Sidebar "Book Spine" */
+.sidebar {
+    width: 260px;
+    background: #23140e;
+    /* Darker spine */
+    border-right: 2px solid #3d261a;
+    padding: 20px 0;
+    box-shadow: inset -5px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* =================================
+   MOBILE STYLES (Bottom Nav & Responsive)
+   ================================= */
+
+.bottom-nav {
+    display: none;
+    /* Hidden by default (desktop) */
+}
+
+.mobile-drawer,
+.mobile-drawer-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    /* Hide Sidebars and Destkop elements */
+    .sidebar {
+        display: none;
+    }
+
+    .header-right {
+        display: none;
+        /* Hide top logout/save buttons, move them to better place or keep them? 
+                          User said "just move structure". Top buttons are important.
+                          Let's keep header-right but maybe compact it. */
+    }
+
+    /* Wait, we need Save/Logout. Let's keep .header-right but adjust layout */
+    .header-right {
+        display: flex;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+        gap: 5px;
+    }
+
+    .header-right span {
+        display: none;
+        /* Hide text labels of buttons on mobile */
+    }
+
+    .btn {
+        padding: 5px 10px;
+        /* Smaller buttons */
+    }
+
+    .header-left h2 {
+        font-size: 18px;
+        /* Smaller title */
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Main Layout adjustments */
+    body {
+        padding-bottom: 70px;
+        /* Space for bottom nav */
+    }
+
+    .admin-content {
+        flex-direction: column;
+    }
+
+    .editor-container {
+        padding: 15px;
+    }
+
+    /* Bottom Nav Styles */
+    .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background: #23140e;
+        /* Dark wood match */
+        border-top: 3px solid #3d261a;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .bottom-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #8d6e63;
+        font-family: var(--font-heading);
+        font-size: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        height: 100%;
+    }
+
+    .bottom-nav-item i {
+        font-size: 20px;
+        margin-bottom: 4px;
+        color: #a1887f;
+    }
+
+    .bottom-nav-item.active {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .bottom-nav-item.active i {
+        color: var(--gold);
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .bottom-nav-item.active span {
+        color: var(--parchment);
+    }
+
+    /* Drawer Styles */
+    .mobile-drawer-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        backdrop-filter: blur(2px);
+    }
+
+    .mobile-drawer-overlay.active {
+        display: block;
+    }
+
+    .mobile-drawer {
+        display: block;
+        position: fixed;
+        bottom: -100%;
+        /* Hidden below */
+        left: 0;
+        width: 100%;
+        background: var(--parchment);
+        border-top: 5px solid var(--burgundy);
+        border-radius: 20px 20px 0 0;
+        padding: 20px;
+        z-index: 2001;
+        transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-drawer.active {
+        bottom: 0;
+        /* Slide up */
+    }
+
+    .drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 10px;
+    }
+
+    .drawer-header h3 {
+        font-family: var(--font-heading);
+        color: var(--burgundy);
+        margin: 0;
+    }
+
+    .drawer-item {
+        padding: 15px;
+        font-family: var(--font-heading);
+        font-size: 18px;
+        color: var(--ink);
+        border-bottom: 1px dashed var(--border);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+    }
+
+    .drawer-item:last-child {
+        border-bottom: none;
+    }
+
+    .drawer-item:active {
+        background: rgba(0, 0, 0, 0.05);
+    }
+}
+
+.tab-btn {
+    width: 100%;
+    padding: 18px 25px;
+    background: transparent;
+    border: none;
+    border-left: 4px solid transparent;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    color: #a89f91;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--parchment);
+}
+
+.tab-btn.active {
+    background: linear-gradient(90deg, rgba(128, 0, 32, 0.3), transparent);
+    border-left-color: var(--gold);
+    color: var(--gold);
+}
+
+.tab-btn i {
+    width: 24px;
+    text-align: center;
+}
+
+/* =================================
+   CONTENT & PANELS
+   ================================= */
+
+.editor-container {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    /* Background pattern like a dark desk pad */
+    background-image: radial-gradient(#3d261a 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.tab-content {
+    display: none;
+    background: var(--parchment);
+    padding: 30px;
+    /* Paper styling */
+    box-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 0, 0, 0.1) inset;
+    border: 1px solid #d4c5a5;
+    position: relative;
+    /* Torn paper edge effect (simplified via border-radius) */
+    border-radius: 2px;
+    margin-bottom: 30px;
+}
+
+/* Torn effect top/bottom via CSS clipping - optional, keeping simple for robustness */
+
+.tab-content.active {
+    display: block;
+    animation: fadeInPage 0.5s ease-out;
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content h3 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--burgundy);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.tab-content h3 i {
+    margin-right: 15px;
+}
+
+/* =================================
+   FORMS & INPUTS (Ink & Quill style)
+   ================================= */
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    font-family: var(--font-heading);
+    color: var(--burgundy);
+    /* Highlight labels */
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    border-radius: 4px;
+    /* Slightly softer edges */
+    padding: 12px 15px;
+    font-family: var(--font-body);
+    font-size: 19px;
+    /* Clearer reading */
+    color: var(--ink);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(189, 155, 88, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    outline: none;
+    transform: scale(1.01);
+    /* Subtle lift */
+}
+
+textarea.form-control {
+    background-image: linear-gradient(transparent 96%, rgba(0, 0, 0, 0.05) 97%);
+    background-size: 100% 30px;
+    /* Writing lines effect */
+    line-height: 30px;
+    padding-top: 5px;
+}
+
+/* =================================
+   BUTTONS (Wax Seals & Metallic)
+   ================================= */
+
+/* General Button Styles */
+button {
+    cursor: pointer;
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add shimmer effect to buttons */
+button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+button:hover::after {
+    left: 100%;
+}
+
+.btn-add,
+.btn-success {
+    background: linear-gradient(135deg, #2d5a27 0%, #1e3a1a 100%);
+    border: 2px solid #a4b3a2;
+    color: #f1f8e9;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.btn-add:hover,
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    filter: brightness(1.1);
+    border-color: #c8e6c9;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #5d4037 0%, #3e2723 100%);
+    border: 2px solid #8d6e63;
+    color: var(--parchment);
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.btn-delete,
+.btn-logout,
+.btn-danger {
+    background: linear-gradient(135deg, #8a1c1c 0%, #661010 100%);
+    border: 2px solid #b71c1c;
+    color: #ffebee;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-delete:hover,
+.btn-logout:hover,
+.btn-danger:hover {
+    background: linear-gradient(135deg, #b71c1c 0%, #7f0000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* =================================
+   CARDS & LISTS
+   ================================= */
+
+.item-card {
+    background: #fdfbf7;
+    /* Slightly lighter parchment */
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Decorative corner for items */
+.item-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 30px 30px 0;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.05) var(--bg-dark) transparent transparent;
+    /* Folded corner illusion */
+    box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.1);
+    display: none;
+    /* Can be distracting, disabling for now */
+}
+
+.item-header h5 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: var(--ink);
+}
+
+/* =================================
+   HOROSCOPE GRID (Tarot Card Style)
+   ================================= */
+
+.horoscopo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.mystical-card {
+    aspect-ratio: 2/3;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    overflow: hidden;
+    display: flex;
+    /* Override old flex */
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Text at bottom if needed, but we center it overlay */
+    align-items: center;
+    /* Remove old padding */
+    background-color: #2a1b3d;
+}
+
+.mystical-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(42, 27, 61, 0.4);
+    /* Slight tint if image is too bright */
+    transition: opacity 0.3s;
+}
+
+.mystical-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+    border-color: #fff;
+}
+
+.mystical-card.active {
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px #d4af37;
+    transform: scale(1.02);
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Cover full card for hover effect */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+}
+
+.mystical-card .symbol {
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.mystical-card .name {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* =================================
+   NOTIFICATION
+   ================================= */
+.notification {
+    background: var(--bg-dark);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 20px black;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #23140e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5d4037;
+    border: 1px solid #3e2723;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--burgundy);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 4px solid var(--gold);
+        justify-content: flex-start;
+        /* Permitir scroll horizontal si es necesario */
+    }
+
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .editor-container {
+        padding: 15px;
+    }
+}

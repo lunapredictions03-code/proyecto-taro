@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Modal de Blog Estilo Carta de Tarot</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #2a1b3d;
+            --color-accent: #d4af37;
+            --color-text: #f4e4bc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #0f0814 0%, #1a0f2e 50%, #0f0814 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* MODAL ESTILO CARTA DE TAROT */
+        .blog-modal-content {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            background: linear-gradient(135deg, #2a1b3d 0%, #3d2358 50%, #2a1b3d 100%);
+            border-radius: 20px;
+            border: 3px solid var(--color-accent);
+            box-shadow:
+                0 0 60px rgba(212, 175, 55, 0.4),
+                0 20px 60px rgba(0, 0, 0, 0.7),
+                inset 0 0 80px rgba(212, 175, 55, 0.05);
+            overflow: hidden;
+            animation: cardAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Decoración de esquinas */
+        .blog-modal-content::before,
+        .blog-modal-content::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,0 L30,0 L0,30 Z" fill="%23d4af37" opacity="0.3"/></svg>');
+            background-size: contain;
+            z-index: 1;
+        }
+
+        .blog-modal-content::before {
+            top: 0;
+            left: 0;
+        }
+
+        .blog-modal-content::after {
+            bottom: 0;
+            right: 0;
+            transform: rotate(180deg);
+        }
+
+        .blog-modal-scroll {
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 60px 50px;
+            z-index: 2;
+        }
+
+        /* Decoración superior */
+        .modal-header-decoration {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--color-accent);
+            font-size: 2rem;
+        }
+
+        .moon-phases {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Imagen de fondo tipo carta */
+        .blog-image-header {
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .blog-image-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(42, 27, 61, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .blog-image-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Título estilo tarot */
+        .blog-modal-title {
+            font-size: 2.8rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Meta información */
+        .blog-modal-meta {
+            text-align: center;
+            color: rgba(244, 228, 188, 0.7);
+            font-size: 1rem;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .blog-modal-meta::after {
+            content: '✦';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            padding: 0 15px;
+            color: var(--color-accent);
+            font-size: 1.5rem;
+        }
+
+        /* Contenido del artículo */
+        .blog-modal-text {
+            color: var(--color-text);
+            font-size: 1.2rem;
+            line-height: 1.9;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .blog-modal-text p {
+            margin-bottom: 25px;
+            text-align: justify;
+            text-indent: 30px;
+        }
+
+        .blog-modal-text p:first-letter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--color-accent);
+            float: left;
+            line-height: 1;
+            margin-right: 8px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .blog-modal-text h2,
+        .blog-modal-text h3 {
+            color: var(--color-accent);
+            font-family: 'Cinzel', serif;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .blog-modal-text h2::before,
+        .blog-modal-text h2::after {
+            content: '✦';
+            margin: 0 15px;
+            opacity: 0.6;
+        }
+
+        .blog-modal-text strong {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .blog-modal-text em {
+            color: rgba(244, 228, 188, 0.9);
+        }
+
+        /* Scrollbar místico */
+        .blog-modal-scroll::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .blog-modal-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        .blog-modal-scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--color-accent) 0%, #c49a2a 100%);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .blog-modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent);
+        }
+
+        /* Botón cerrar */
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .demo-info {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(212, 175, 55, 0.95);
+            color: #0f0814;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blog-modal-content">
+        <button class="modal-close" title="Cerrar">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="blog-modal-scroll">
+            <!-- Decoración superior -->
+            <div class="modal-header-decoration">
+                <div class="moon-phases">
+                    <span>🌑</span>
+                    <span>🌒</span>
+                    <span>🌓</span>
+                    <span>🌔</span>
+                    <span>🌕</span>
+                    <span>🌖</span>
+                    <span>🌗</span>
+                    <span>🌘</span>
+                </div>
+            </div>
+
+            <!-- Imagen principal -->
+            <div class="blog-image-header">
+                <img src="https://res.cloudinary.com/diq9jnrm2/image/upload/v1766043443/tpixntinfjxck7lozjrd.jpg"
+                    alt="El Significado de los Arcanos Mayores">
+            </div>
+
+            <!-- Título -->
+            <h2 class="blog-modal-title">El Significado de los Arcanos Mayores</h2>
+
+            <!-- Fecha -->
+            <div class="blog-modal-meta">
+                <span><i class="far fa-calendar"></i> 10 Dic 2025</span>
+            </div>
+
+            <!-- Contenido -->
+            <div class="blog-modal-text">
+                <p>
+                    El tarot es una herramienta ancestral que nos permite conectar con nuestra intuición más profunda.
+                    Los 22 Arcanos Mayores representan las lecciones fundamentales de la vida, cada carta un espejo del
+                    alma humana en su viaje hacia la iluminación.
+                </p>
+
+                <p>
+                    Desde <strong>El Loco</strong> que inicia su camino con inocencia y confianza, hasta <strong>El
+                        Mundo</strong> que representa la culminación y la totalidad, cada arcano tiene un mensaje único
+                    para nosotros. Son arquetipos universales que trascienden el tiempo y la cultura.
+                </p>
+
+                <h2>La Sabiduría de las Cartas</h2>
+
+                <p>
+                    Cuando consultas los Arcanos Mayores, no estás simplemente leyendo el futuro. Estás accediendo a una
+                    sabiduría que ha existido durante siglos, una guía espiritual que te ayuda a comprender mejor tu
+                    camino y tus decisiones.
+                </p>
+
+                <p>
+                    Cada carta te invita a reflexionar sobre aspectos específicos de tu vida: tus miedos, tus
+                    esperanzas, tus relaciones, tu propósito. <em>El tarot no dicta tu destino, te ayuda a crearlo
+                        conscientemente.</em>
+                </p>
+
+                <h2>Cómo Conectar con los Arcanos</h2>
+
+                <p>
+                    Para aprovechar al máximo la sabiduría de los Arcanos Mayores, es importante acercarse a ellos con
+                    mente abierta y corazón receptivo. Cada lectura es una conversación íntima con el universo, un
+                    momento sagrado de autoconocimiento.
+                </p>
+
+                <p>
+                    Recuerda que el verdadero poder del tarot no está en predecir el futuro, sino en iluminar el
+                    presente y empoderarte para tomar decisiones conscientes que moldeen tu mañana.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-info">
+        ✨ DEMO: Modal de Blog Estilo Carta de Tarot ✨
+    </div>
+</body>
+
+</html>

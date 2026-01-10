@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Descubre tu destino con lecturas profesionales de tarot. Consultas personalizadas, orientación espiritual y claridad en tus decisiones.">
+    <meta name="keywords"
+        content="tarot, lectura de tarot, tarotista profesional, cartas del tarot, consulta espiritual">
+    <title>Luna Predictions - Descubre tu Destino</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Firebase SDKs (opcional - para carga desde Firebase) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <link rel="stylesheet" href="styles-v4.css">
+    <link rel="stylesheet" href="horoscopo-modal.css?v=2">
+    <link rel="stylesheet" href="blog-modal.css">
+</head>
+
+<body>
+    <!-- Splash Screen / Portada -->
+    <div class="splash-screen" id="splash-screen">
+        <div class="splash-content">
+            <!-- Partículas mágicas de fondo -->
+            <div class="magic-particles"></div>
+
+            <!-- Fondo de portada -->
+            <div class="portada-fondo">
+                <img src="images/portada-sin-logo.png" alt="Fondo Místico" class="portada-bg-image">
+            </div>
+
+            <!-- Logo Luna Predictions -->
+            <div class="logo-container">
+                <img src="images/logo-luna.jpg" alt="Luna Predictions" class="main-logo">
+                <div class="logo-rays"></div>
+            </div>
+
+            <!-- Botón de entrada -->
+            <button class="btn-enter" id="btn-enter">
+                <span class="btn-enter-text">ENTRA AL PORTAL</span>
+                <span class="btn-enter-glow"></span>
+            </button>
+
+            <!-- Efectos de transición -->
+            <div class="portal-effect"></div>
+        </div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="stars-container" id="stars"></div>
+
+    <!-- Header/Navigation -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <div class="nav-logo">
+                <span>Luna Predictions</span>
+                <span id="secret-admin-moon-header" onclick="window.location.href='admin.html'"
+                    style="cursor: pointer; display: inline-block; transition: transform 0.3s;"
+                    onmouseover="this.style.transform='rotate(15deg) scale(1.2)'"
+                    onmouseout="this.style.transform='rotate(0) scale(1)'">
+                    <i class="fas fa-moon"></i>
+                </span>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+                    <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                    <li><a href="#blog" class="nav-link">Blog</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <a href="#" class="btn-reserva" id="btn-reserva-header">Reservar Consulta</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content container">
+            <div class="hero-text">
+                <h1 class="hero-title animate-fade-in">Descubre tu Destino</h1>
+                <p class="hero-subtitle animate-fade-in-delay">Encuentra claridad y orientación a través de las cartas
+                    del tarot</p>
+                <div class="hero-buttons animate-fade-in-delay-2">
+                    <a href="#servicios" class="btn btn-primary">Explorar Servicios</a>
+                    <a href="#" class="btn btn-secondary" id="btn-reserva-hero">Agendar Lectura</a>
+                </div>
+            </div>
+            <div class="hero-cards">
+                <a href="#horoscopo" class="floating-card card-1">
+                    <img src="images/bruja-mistica.png" alt="Conoce tu Horóscopo" class="card-image"
+                        id="home-horoscope-image">
+                    <span class="card-overlay-text">Conoce tu Horóscopo</span>
+                </a>
+                <a href="#servicios" class="floating-card card-2">
+                    <i class="fas fa-crystal-ball"></i>
+                    <span>Lectura de Tarot</span>
+                </a>
+                <a href="#blog" class="floating-card card-3">
+                    <i class="fas fa-book-open"></i>
+                    <span>Sabiduría Mística</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Horóscopos Section -->
+    <section class="horoscopos section" id="horoscopo">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Conoce tu Horóscopo</h2>
+                <p class="section-subtitle">Descubre lo que los astros tienen preparado para tu signo</p>
+            </div>
+
+            <div class="horoscopos-grid">
+                <!-- Aries -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Aries')"
+                    style="background-image: url('images/zodiac/aries-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">ARIES</h3>
+                        <p class="horoscopo-fechas">21 Mar - 19 Abr</p>
+                    </div>
+                </div>
+
+                <!-- Tauro -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Tauro')"
+                    style="background-image: url('images/zodiac/taurus-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">TAURO</h3>
+                        <p class="horoscopo-fechas">20 Abr - 20 May</p>
+                    </div>
+                </div>
+
+                <!-- Géminis -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Géminis')"
+                    style="background-image: url('images/zodiac/gemini-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">GÉMINIS</h3>
+                        <p class="horoscopo-fechas">21 May - 20 Jun</p>
+                    </div>
+                </div>
+
+                <!-- Cáncer -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Cáncer')"
+                    style="background-image: url('images/zodiac/cancer-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">CÁNCER</h3>
+                        <p class="horoscopo-fechas">21 Jun - 22 Jul</p>
+                    </div>
+                </div>
+
+                <!-- Leo -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Leo')"
+                    style="background-image: url('images/zodiac/leo-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">LEO</h3>
+                        <p class="horoscopo-fechas">23 Jul - 22 Ago</p>
+                    </div>
+                </div>
+
+                <!-- Virgo -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Virgo')"
+                    style="background-image: url('images/zodiac/virgo-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">VIRGO</h3>
+                        <p class="horoscopo-fechas">23 Ago - 22 Sep</p>
+                    </div>
+                </div>
+
+                <!-- Libra -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Libra')"
+                    style="background-image: url('images/zodiac/libra-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">LIBRA</h3>
+                        <p class="horoscopo-fechas">23 Sep - 22 Oct</p>
+                    </div>
+                </div>
+
+                <!-- Escorpio -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Escorpio')"
+                    style="background-image: url('images/zodiac/scorpio-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">ESCORPIO</h3>
+                        <p class="horoscopo-fechas">23 Oct - 21 Nov</p>
+                    </div>
+                </div>
+
+                <!-- Sagitario -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Sagitario')"
+                    style="background-image: url('images/zodiac/sagittarius-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">SAGITARIO</h3>
+                        <p class="horoscopo-fechas">22 Nov - 21 Dic</p>
+                    </div>
+                </div>
+
+                <!-- Capricornio -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Capricornio')"
+                    style="background-image: url('images/zodiac/capricorn-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">CAPRICORNIO</h3>
+                        <p class="horoscopo-fechas">22 Dic - 19 Ene</p>
+                    </div>
+                </div>
+
+                <!-- Acuario -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Acuario')"
+                    style="background-image: url('images/zodiac/aquarius-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">ACUARIO</h3>
+                        <p class="horoscopo-fechas">20 Ene - 18 Feb</p>
+                    </div>
+                </div>
+
+                <!-- Piscis -->
+                <div class="horoscopo-card" onclick="openHoroscopoModal('Piscis')"
+                    style="background-image: url('images/zodiac/pisces-card.png');">
+                    <div class="card-overlay">
+                        <h3 class="horoscopo-nombre">PISCIS</h3>
+                        <p class="horoscopo-fechas">19 Feb - 20 Mar</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section class="servicios section" id="servicios">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Servicios de Lectura</h2>
+                <p class="section-subtitle">Encuentra el tipo de consulta que mejor se adapte a tus necesidades</p>
+            </div>
+
+            <div class="servicios-grid">
+                <div class="servicio-card glass-effect">
+                    <div class="servicio-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="servicio-title">Lectura de 3 Cartas</h3>
+                    <p class="servicio-description">Pasado, presente y futuro. Ideal para preguntas específicas y
+                        orientación rápida.</p>
+                    <div class="servicio-features">
+                        <p><i class="fas fa-check"></i> 15 minutos</p>
+                        <p><i class="fas fa-check"></i> Una pregunta específica</p>
+                        <p><i class="fas fa-check"></i> Interpretación detallada</p>
+                    </div>
+                    <div class="servicio-precio">$25 USD</div>
+                    <a href="#" class="btn btn-servicio reservar-btn">Reservar Ahora</a>
+                </div>
+
+                <div class="servicio-card glass-effect featured">
+                    <div class="featured-badge">Más Popular</div>
+                    <div class="servicio-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="servicio-title">Lectura Completa</h3>
+                    <p class="servicio-description">Análisis profundo de tu situación actual y guía para tus próximos
+                        pasos.</p>
+                    <div class="servicio-features">
+                        <p><i class="fas fa-check"></i> 45 minutos</p>
+                        <p><i class="fas fa-check"></i> Múltiples aspectos de tu vida</p>
+                        <p><i class="fas fa-check"></i> Grabación de la sesión</p>
+                    </div>
+                    <div class="servicio-precio">$65 USD</div>
+                    <a href="#" class="btn btn-servicio reservar-btn">Reservar Ahora</a>
+                </div>
+
+                <div class="servicio-card glass-effect">
+                    <div class="servicio-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="servicio-title">Lectura de Pareja</h3>
+                    <p class="servicio-description">Explora la dinámica de tu relación y el futuro de tu conexión
+                        amorosa.</p>
+                    <div class="servicio-features">
+                        <p><i class="fas fa-check"></i> 30 minutos</p>
+                        <p><i class="fas fa-check"></i> Compatibilidad y desafíos</p>
+                        <p><i class="fas fa-check"></i> Consejos personalizados</p>
+                    </div>
+                    <div class="servicio-precio">$45 USD</div>
+                    <a href="#" class="btn btn-servicio reservar-btn">Reservar Ahora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Mí Section (Rediseño Zen Card) -->
+    <section class="sobre-mi section" id="sobre-mi">
+        <div class="container">
+            <div class="zen-card-container">
+                <div class="zen-card glass-effect">
+                    <div class="profile-circle-wrapper">
+                        <div class="profile-circle">
+                            <img src="images/bruja-mistica.png" alt="Luna Predictions" id="sobre-mi-img-dynamic">
+                        </div>
+                    </div>
+
+                    <div class="zen-card-content">
+                        <span class="zen-subtitle" id="sobre-mi-subtitle">Guía Espiritual & Tarotista</span>
+                        <h2 class="zen-title" id="sobre-mi-title">Luna Predictions</h2>
+                        <p class="zen-bio" id="sobre-mi-desc">
+                            "A través de los arcanos, desvelo las energías sutiles que te rodean para que tomes el
+                            control de tu destino. Mi misión es darte claridad en el caos y paz en tu camino
+                            espiritual."
+                        </p>
+
+                        <div class="zen-badges">
+                            <div class="zen-badge">
+                                <i class="fas fa-certificate"></i>
+                                <span id="exp-badge-number">15+</span> Años Exp.
+                            </div>
+                            <div class="zen-badge">
+                                <i class="fas fa-star"></i>
+                                <span id="stat-2-number">5.0</span> Rating
+                            </div>
+                            <div class="zen-badge">
+                                <i class="fas fa-users"></i>
+                                <span id="stat-1-number">3,500+</span> Clientes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section class="testimonios section" id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo que Dicen Mis Clientes</h2>
+                <p class="section-subtitle">Historias reales de transformación y claridad</p>
+            </div>
+
+            <div class="testimonios-grid">
+                <div class="testimonio-card glass-effect">
+                    <div class="testimonio-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonio-text">"La lectura fue increíblemente precisa y me dio la claridad que
+                        necesitaba en un momento difícil. Totalmente recomendado."</p>
+                    <div class="testimonio-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <p>Ciudad de México</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonio-card glass-effect">
+                    <div class="testimonio-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonio-text">"Una experiencia transformadora. Las cartas revelaron aspectos de mi vida
+                        que no había considerado. Profundamente agradecida."</p>
+                    <div class="testimonio-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <h4>Sofía Ramírez</h4>
+                            <p>Barcelona</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonio-card glass-effect">
+                    <div class="testimonio-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonio-text">"Profesional, empático y certero. La lectura de pareja nos ayudó a
+                        entender mejor nuestra relación. ¡Excelente!"</p>
+                    <div class="testimonio-author">
+                        <div class="author-avatar">C</div>
+                        <div class="author-info">
+                            <h4>Carlos Mendoza</h4>
+                            <p>Buenos Aires</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog section" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Blog Espiritual</h2>
+                <p class="section-subtitle">Sabiduría del tarot y desarrollo personal</p>
+            </div>
+
+            <div class="blog-grid">
+                <article class="blog-card glass-effect">
+                    <div class="blog-image">
+                        <div class="blog-category">Guías</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">El Significado de los Arcanos Mayores</h3>
+                        <p class="blog-excerpt">Descubre la profunda sabiduría detrás de las 22 cartas principales del
+                            tarot y su influencia en tu vida...</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> 10 Dic 2025</span>
+                            <span><i class="far fa-clock"></i> 5 min lectura</span>
+                        </div>
+                        <a href="#" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card glass-effect">
+                    <div class="blog-image">
+                        <div class="blog-category">Rituales</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Rituales de Luna Llena con el Tarot</h3>
+                        <p class="blog-excerpt">Aprende a potenciar tus lecturas de tarot durante las fases lunares para
+                            obtener mayor claridad...</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> 5 Dic 2025</span>
+                            <span><i class="far fa-clock"></i> 7 min lectura</span>
+                        </div>
+                        <a href="#" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card glass-effect">
+                    <div class="blog-image">
+                        <div class="blog-category">Consejos</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Cómo Prepararte para tu Primera Lectura</h3>
+                        <p class="blog-excerpt">Consejos esenciales para aprovechar al máximo tu consulta de tarot y
+                            recibir la guía que necesitas...</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> 1 Dic 2025</span>
+                            <span><i class="far fa-clock"></i> 4 min lectura</span>
+                        </div>
+                        <a href="#" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span id="secret-admin-moon" onclick="window.location.href='admin.html'"
+                            style="cursor: pointer; display: inline-block; transition: transform 0.3s;"
+                            onmouseover="this.style.transform='rotate(15deg) scale(1.2)'"
+                            onmouseout="this.style.transform='rotate(0) scale(1)'">
+                            <i class="fas fa-moon"></i>
+                        </span>
+                        <span>Luna Predictions</span>
+                    </div>
+                    <p class="footer-description">Iluminando tu camino hacia la claridad y el autodescubrimiento a
+                        través de la sabiduría del tarot.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#sobre-mi">Sobre Mí</a></li>
+                        <li><a href="#testimonios">Testimonios</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Servicios</h3>
+                    <ul class="footer-links" id="footer-services-list">
+                        <li><a href="#servicios">Lectura de 3 Cartas</a></li>
+                        <li><a href="#servicios">Lectura Completa</a></li>
+                        <li><a href="#servicios">Lectura de Pareja</a></li>
+                        <li><a href="#servicios">Consultas Especiales</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Contacto</h3>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@tarotmistico.com">info@tarotmistico.com</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/1234567890">+1 (234) 567-8900</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Lun - Vie: 9:00 AM - 8:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Luna Predictions. Todos los derechos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Reserva -->
+    <div class="modal" id="modal-reserva">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-effect">
+            <button class="modal-close" id="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">Reservar Consulta</h2>
+            <p class="modal-subtitle">Completa el formulario y te contactaré pronto</p>
+
+            <form class="reserva-form" id="reserva-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">WhatsApp / Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="servicio">Tipo de Lectura</label>
+                    <select id="servicio" name="servicio" required>
+                        <option value="">Selecciona un servicio</option>
+                        <!-- Los servicios se cargarán dinámicamente desde config.json -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Cuéntame sobre tu consulta (opcional)</label>
+                    <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Enviar Solicitud</button>
+            </form>
+
+            <div class="modal-whatsapp">
+                <p>¿Prefieres contactar directamente por WhatsApp?</p>
+                <a href="https://wa.me/1234567890" id="modal-whatsapp-btn" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal de Horóscopo Místico -->
+    <div class="modal horoscopo-modal" id="modal-horoscopo">
+        <div class="modal-overlay horoscopo-overlay"></div>
+        <div class="horoscopo-modal-content glass-effect">
+            <!-- Partículas místicas de fondo -->
+            <div class="mystic-particles"></div>
+
+            <button class="modal-close horoscopo-close" id="modal-horoscopo-close">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Carta mágica con información del horóscopo -->
+            <div class="tarot-card-container">
+                <!-- Nombre del signo ARRIBA de la carta -->
+                <h2 class="tarot-title-above" id="horoscopo-nombre">Aries</h2>
+
+                <!-- Carta (solo imagen, sin texto) -->
+                <div class="tarot-card">
+                    <div class="tarot-card-front" id="tarot-card-image">
+                        <!-- Símbolo oculto por defecto -->
+                        <div class="tarot-symbol" id="horoscopo-symbol" style="display: none;">♈</div>
+                    </div>
+                </div>
+
+                <!-- Fechas DEBAJO de la carta -->
+                <p class="tarot-dates-below" id="horoscopo-fechas">21 Mar - 19 Abr</p>
+            </div>
+
+            <!-- Predicción del horóscopo -->
+            <div class="horoscopo-prediction">
+                <h3 class="prediction-title">Tu Predicción de Hoy</h3>
+                <p class="prediction-text" id="prediction-text">
+                    Las estrellas están alineadas a tu favor. Es un día perfecto para nuevos comienzos.
+                </p>
+
+                <div class="prediction-details">
+                    <div class="prediction-item">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Amor</h4>
+                            <p id="amor-text">Energía positiva en tus relaciones</p>
+                        </div>
+                    </div>
+                    <div class="prediction-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <h4>Trabajo</h4>
+                            <p id="trabajo-text">Oportunidades se presentan</p>
+                        </div>
+                    </div>
+                    <div class="prediction-item">
+                        <i class="fas fa-coins"></i>
+                        <div>
+                            <h4>Finanzas</h4>
+                            <p id="finanzas-text">Momento de prudencia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lucky-items">
+                    <div class="lucky-item">
+                        <span class="lucky-label">Color de la Suerte:</span>
+                        <span class="lucky-value" id="lucky-color">Dorado</span>
+                    </div>
+                    <div class="lucky-item">
+                        <span class="lucky-label">Número:</span>
+                        <span class="lucky-value" id="lucky-number">7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Blog -->
+    <div class="modal blog-modal" id="modal-blog">
+        <div class="modal-overlay blog-overlay"></div>
+        <div class="blog-modal-content glass-effect">
+            <button class="modal-close blog-close" id="modal-blog-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="blog-modal-scroll">
+                <div class="blog-video-container" id="blog-video-container" style="display: none;">
+                    <!-- Video iframe will be injected here -->
+                </div>
+                <div class="blog-image-header" id="blog-image-header" style="display: none;">
+                    <img id="blog-modal-image" src="" alt="Blog Cover">
+                </div>
+
+                <h2 class="blog-modal-title" id="blog-modal-title">Título del Post</h2>
+                <div class="blog-modal-meta">
+                    <span id="blog-modal-date">Fecha</span>
+                </div>
+
+                <div class="blog-modal-text" id="blog-modal-content">
+                    <!-- HTML Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Dejar Reseña -->
+    <div class="modal" id="modal-review">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-effect">
+            <button class="modal-close" id="modal-review-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">Comparte tu Experiencia</h2>
+            <p class="modal-subtitle">Tu opinión ayuda a otros a encontrar su camino</p>
+
+            <form class="reserva-form" id="review-form">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Ubicación</label>
+                    <input type="text" name="ubicacion" required placeholder="Ciudad, País">
+                </div>
+                <div class="form-group">
+                    <label>Calificación</label>
+                    <div class="star-rating-input">
+                        <i class="far fa-star" data-value="1"></i>
+                        <i class="far fa-star" data-value="2"></i>
+                        <i class="far fa-star" data-value="3"></i>
+                        <i class="far fa-star" data-value="4"></i>
+                        <i class="far fa-star" data-value="5"></i>
+                        <input type="hidden" name="rating" id="review-rating" value="5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tu Testimonio</label>
+                    <textarea name="texto" rows="4" required placeholder="Cuéntanos cómo fue tu lectura..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Enviar Reseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom Nav for Mobile -->
+    <div class="bottom-nav">
+        <a href="#inicio" class="bottom-nav-item active" onclick="activateBottomNav(this)">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="#horoscopo" class="bottom-nav-item" onclick="activateBottomNav(this)">
+            <i class="fas fa-moon"></i>
+            <span>Horóscopo</span>
+        </a>
+        <a href="#servicios" class="bottom-nav-item" onclick="activateBottomNav(this)">
+            <i class="fas fa-star"></i>
+            <span>Servicios</span>
+        </a>
+        <a href="#blog" class="bottom-nav-item" onclick="activateBottomNav(this)">
+            <i class="fas fa-book-open"></i>
+            <span>Blog</span>
+        </a>
+        <div class="bottom-nav-item" onclick="toggleMobileMenuMain()">
+            <i class="fas fa-bars"></i>
+            <span>Menú</span>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer for Main Site (Cosmos Theme) -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlayMain" onclick="toggleMobileMenuMain()"></div>
+    <div class="mobile-drawer" id="mobileDrawerMain">
+        <div class="drawer-header">
+            <h3>Explorar</h3>
+            <button onclick="toggleMobileMenuMain()"
+                style="background:none; border:none; color:var(--color-accent); font-size:20px;"><i
+                    class="fas fa-times"></i></button>
+        </div>
+        <a href="#sobre-mi" class="drawer-item" onclick="toggleMobileMenuMain()">
+            <i class="fas fa-user-astronaut"></i> Sobre Mí
+        </a>
+        <a href="#testimonios" class="drawer-item" onclick="toggleMobileMenuMain()">
+            <i class="fas fa-comments"></i> Testimonios
+        </a>
+        <a href="#contacto" class="drawer-item" onclick="toggleMobileMenuMain()">
+            <i class="fas fa-envelope"></i> Contacto
+        </a>
+        <a href="#" class="drawer-item"
+            style="color:var(--color-accent); margin-top:10px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;"
+            id="btn-reserva-mobile-drawer">
+            <i class="fas fa-calendar-check"></i> Reservar Consulta
+        </a>
+    </div>
+
+    <script src="script-v4.js"></script>
+    <script>
+        // Main Site Mobile Nav Logic
+        function toggleMobileMenuMain() {
+            const drawer = document.getElementById('mobileDrawerMain');
+            const overlay = document.getElementById('mobileDrawerOverlayMain');
+            if (drawer.classList.contains('active')) {
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+            } else {
+                drawer.classList.add('active');
+                overlay.classList.add('active');
+            }
+        }
+
+        // activateBottomNav is now handled in script-v4.js with full mobile logic
+    </script>
+</body>
+
+</html>
+```

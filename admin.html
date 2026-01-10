@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Luna Predictions</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Cloudinary Upload Widget -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="admin-v4.css">
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-moon"></i>
+                <h1>Panel de Administración</h1>
+                <p>Luna Predictions</p>
+            </div>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="email" required placeholder="admin@tarotmistico.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Contraseña
+                    </label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
+
+                <div id="login-error" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-screen" class="screen">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <i class="fas fa-moon"></i>
+                <h2>Panel de Administración</h2>
+            </div>
+            <div class="header-right">
+                <button id="btn-share" class="btn-secondary">
+                    <i class="fas fa-share-alt"></i> Compartir Link Público
+                </button>
+                <button id="btn-preview" class="btn-info">
+                    <i class="fas fa-eye"></i> Visualizar Cambios
+                </button>
+                <button id="btn-save" class="btn-success">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+                <button id="btn-logout" class="btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Sidebar Tabs -->
+            <div class="sidebar">
+                <button class="tab-btn active" data-tab="general">
+                    <i class="fas fa-cog"></i> General
+                </button>
+                <button class="tab-btn" data-tab="servicios">
+                    <i class="fas fa-star"></i> Servicios
+                </button>
+                <button class="tab-btn" data-tab="testimonios">
+                    <i class="fas fa-comment"></i> Testimonios
+                </button>
+                <button class="tab-btn" data-tab="sobre-mi">
+                    <i class="fas fa-user-astronaut"></i> Sobre Mí
+                </button>
+                <button class="tab-btn" data-tab="blog">
+                    <i class="fas fa-blog"></i> Blog
+                </button>
+                <button class="tab-btn" data-tab="horoscopos">
+                    <i class="fas fa-moon"></i> Horóscopos
+                </button>
+                <button class="tab-btn" data-tab="redes">
+                    <i class="fas fa-hashtag"></i> Redes Sociales
+                </button>
+                <button class="tab-btn" data-tab="qrcode">
+                    <i class="fas fa-qrcode"></i> Código QR
+                </button>
+            </div>
+
+            <!-- Editor Panels -->
+            <div class="editor-container">
+                <!-- General Tab -->
+
+                <div id="tab-general" class="tab-content active">
+                    <h3><i class="fas fa-cog"></i> Configuración General</h3>
+
+
+                    <div class="admin-grid-layout">
+                        <!-- Left Column: All Text Inputs -->
+                        <div class="left-col">
+                            <div class="form-section">
+                                <h4>Información del Sitio</h4>
+                                <div class="form-group">
+                                    <label>Nombre del Sitio</label>
+                                    <input type="text" id="siteName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tagline</label>
+                                    <input type="text" id="tagline" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Textos Portada (Hero)</h4>
+                                <div class="form-group">
+                                    <label>Título Principal</label>
+                                    <input type="text" id="hero-title" class="form-control"
+                                        placeholder="Descubre el mensaje de tu alma">
+                                </div>
+                                <div class="form-group">
+                                    <label>Subtítulo</label>
+                                    <textarea id="hero-subtitle" class="form-control" rows="3"
+                                        placeholder="Encuentra claridad y orientación a través de las cartas del tarot..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Contacto</h4>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="contact-email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>WhatsApp (solo número)</label>
+                                    <input type="text" id="contact-whatsapp" class="form-control"
+                                        placeholder="5215512345678">
+                                </div>
+                                <div class="form-group">
+                                    <label>Horario de Atención</label>
+                                    <input type="text" id="contact-horario" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Hero Image ONLY -->
+                        <div class="right-col">
+                            <div class="form-section"
+                                style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                                <h4>Imagen Portada</h4>
+                                <div
+                                    style="text-align: center; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                                    <label
+                                        style="display: block; margin-bottom: 20px; color: var(--gold); font-size: 1.2em;">"Conoce
+                                        tu Horóscopo"</label>
+
+                                    <img src="images/bruja-mistica.png" id="hero-horoscope-preview"
+                                        style="display: block; margin: 0 auto 25px auto; max-width: 100%; height: auto; max-height: 400px; border-radius: 12px; border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+
+                                    <div
+                                        style="display: flex; justify-content: center; gap: 10px; width: 100%; margin: 0 auto;">
+                                        <!-- Hidden File Input -->
+                                        <input type="file" id="file-hero-horoscope" style="display: none;"
+                                            onchange="uploadImage(this, 'hero-horoscope-image', 'upload-status-hero', 'hero-horoscope-preview')">
+
+                                        <input type="text" id="hero-horoscope-image" class="form-control"
+                                            value="images/bruja-mistica.png" readonly
+                                            style="text-align: center; flex: 1; min-width: 0;">
+
+                                        <button class="btn-secondary"
+                                            onclick="document.getElementById('file-hero-horoscope').click()"
+                                            style="white-space: nowrap; padding: 0 25px; flex-shrink: 0;">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                    </div>
+                                    <small id="upload-status-hero" style="display: block; margin-top: 10px;"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicios Tab -->
+                <div id="tab-servicios" class="tab-content">
+                    <h3><i class="fas fa-star"></i> Gestión de Servicios</h3>
+                    <button id="btn-add-servicio" class="btn-add">
+                        <i class="fas fa-plus"></i> Agregar Servicio
+                    </button>
+                    <div id="servicios-list" class="items-list"></div>
+                </div>
+
+                <!-- Testimonios Tab -->
+                <div id="tab-testimonios" class="tab-content">
+                    <h3><i class="fas fa-inbox"></i> Reseñas Pendientes</h3>
+                    <p class="text-muted">Aprueba las reseñas de usuarios para publicarlas.</p>
+                    <div id="pending-reviews-list" class="items-list"
+                        style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 30px; min-height: 100px;">
+                        <p style="text-align:center; color:#ccc;">Cargando reseñas pendientes...</p>
+                    </div>
+
+                    <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+                    <h3><i class="fas fa-comment"></i> Testimonios Publicados</h3>
+                    <button id="btn-add-testimonio" class="btn-add">
+                        <i class="fas fa-plus"></i> Agregar Manualmente
+                    </button>
+                    <div id="testimonios-list" class="items-list"></div>
+                </div>
+
+                <div id="tab-sobre-mi" class="tab-content">
+                    <h3><i class="fas fa-user-astronaut"></i> Editar Perfil "Sobre Mí"</h3>
+                    <p class="text-muted">Personaliza tu presentación, foto y estadísticas.</p>
+
+                    <div class="profile-editor-grid"
+                        style="display: grid; grid-template-columns: 250px 1fr; gap: 30px; margin-top: 20px;">
+                        <!-- Left Column: Image -->
+                        <div class="profile-image-section"
+                            style="text-align: center; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.2);">
+                            <img src="" id="sobre-mi-preview" alt="Profile"
+                                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); margin-bottom: 15px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);">
+
+                            <!-- Hidden File Input -->
+                            <input type="file" id="file-sobre-mi" style="display: none;"
+                                onchange="uploadImage(this, 'sobre-mi-image-url', 'upload-status-sobremi', 'sobre-mi-preview')">
+
+                            <input type="text" id="sobre-mi-image-url" class="form-control" placeholder="URL imagen"
+                                style="margin-bottom: 10px;">
+
+                            <button class="btn-secondary" onclick="document.getElementById('file-sobre-mi').click()"
+                                style="width: 100%;">
+                                <i class="fas fa-camera"></i> Cambiar Foto
+                            </button>
+                            <small id="upload-status-sobremi" style="display: block; margin-top: 5px;"></small>
+                            <small style="display: block; margin-top: 10px; color: #888;">Recomendado: 500x500px</small>
+                        </div>
+
+                        <!-- Right Column: Info -->
+                        <div class="profile-info-section">
+                            <div class="form-section">
+                                <h4>Presentación</h4>
+                                <div class="form-group">
+                                    <label>Título / Saludo</label>
+                                    <input type="text" id="sobre-mi-intro" class="form-control">
+                                </div>
+
+                                <h4>Estadísticas (Badges)</h4>
+                                <div class="stats-grid"
+                                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                                    <div class="stat-input-group"
+                                        style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                                        <label style="font-size: 0.8rem; color: var(--gold);">Años Exp.</label>
+                                        <input type="text" id="sobre-mi-experiencia" class="form-control">
+                                    </div>
+                                    <div class="stat-input-group"
+                                        style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                                        <label style="font-size: 0.8rem; color: var(--gold);">Clientes</label>
+                                        <input type="text" id="sobre-mi-clientes" class="form-control">
+                                    </div>
+                                    <div class="stat-input-group"
+                                        style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                                        <label style="font-size: 0.8rem; color: var(--gold);">Calificación</label>
+                                        <input type="text" id="sobre-mi-rating" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Full Width Bottom: Biography -->
+                    <div class="form-section" style="margin-top: 20px;">
+                        <h4>Biografía</h4>
+                        <div class="form-group">
+                            <label>Párrafo 1 (Introducción)</label>
+                            <textarea id="sobre-mi-bio1" class="form-control" rows="3"
+                                style="width: 100%; box-sizing: border-box;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Párrafo 2 (Misión/Cierre)</label>
+                            <textarea id="sobre-mi-bio2" class="form-control" rows="3"
+                                style="width: 100%; box-sizing: border-box;"></textarea>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; text-align: right;">
+                        <button class="btn-success" onclick="saveSobreMi()"><i class="fas fa-save"></i> Guardar
+                            Cambios</button>
+                    </div>
+                </div>
+
+                <!-- Blog Tab -->
+                <div id="tab-blog" class="tab-content">
+                    <h3><i class="fas fa-blog"></i> Gestión de Blog</h3>
+                    <button id="btn-add-post" class="btn-add">
+                        <i class="fas fa-plus"></i> Agregar Post
+                    </button>
+                    <div id="blog-list" class="items-list"></div>
+                </div>
+
+                <!-- Horóscopos Tab -->
+                <div id="tab-horoscopos" class="tab-content">
+                    <h3><i class="fas fa-moon"></i> Editor de Horóscopos</h3>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <p class="tab-description" style="margin-bottom:0;">Actualiza las predicciones diarias para cada
+                            signo zodiacal</p>
+                        <button id="btn-reset-horoscopos" class="btn-warning"
+                            style="background:#ff9800; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">
+                            <i class="fas fa-sync-alt"></i> Nueva Semana
+                        </button>
+                    </div>
+
+                    <div id="horoscopo-selector" class="horoscopo-grid">
+                        <!-- Se llenarán con JavaScript -->
+                    </div>
+
+                    <div id="horoscopo-editor" class="horoscopo-editor"></div>
+                </div>
+
+                <!-- Redes Sociales Tab -->
+                <div id="tab-redes" class="tab-content">
+                    <h3><i class="fas fa-hashtag"></i> Redes Sociales</h3>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label><i class="fab fa-instagram"></i> Instagram</label>
+                            <input type="url" id="social-instagram" class="form-control"
+                                placeholder="https://instagram.com/tu_perfil">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-facebook"></i> Facebook</label>
+                            <input type="url" id="social-facebook" class="form-control"
+                                placeholder="https://facebook.com/tu_pagina">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-tiktok"></i> TikTok</label>
+                            <input type="url" id="social-tiktok" class="form-control"
+                                placeholder="https://tiktok.com/@tu_usuario">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-youtube"></i> YouTube</label>
+                            <input type="url" id="social-youtube" class="form-control"
+                                placeholder="https://youtube.com/@tu_canal">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Code Tab -->
+                <div id="tab-qrcode" class="tab-content">
+                    <h3><i class="fas fa-qrcode"></i> Generador de Sticker Mágico</h3>
+
+                    <div class="qr-editor-container" style="display: flex; gap: 30px; flex-wrap: wrap;">
+                        <!-- Controls -->
+                        <div class="qr-controls" style="flex: 1; min-width: 300px;">
+                            <div class="form-section">
+                                <h4>Personalización</h4>
+                                <div class="form-group">
+                                    <label>Título Superior</label>
+                                    <input type="text" id="qr-title" class="form-control" value="Tarot Místico"
+                                        oninput="updateQRPreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Texto Inferior (Línea 1)</label>
+                                    <input type="text" id="qr-text-1" class="form-control" value="Escanea para"
+                                        oninput="updateQRPreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Texto Inferior (Línea 2 - Énfasis)</label>
+                                    <input type="text" id="qr-text-2" class="form-control" value="Descubrir tu Destino"
+                                        oninput="updateQRPreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen del Código QR</label>
+                                    <input type="text" id="qr-image-url" class="form-control"
+                                        placeholder="URL de la imagen" onchange="updateQRPreview()">
+                                    <div style="margin-top:10px;">
+                                        <input type="file"
+                                            onchange="uploadImage(this, 'qr-image-url', 'upload-status-qr');"
+                                            accept="image/*">
+                                        <small id="upload-status-qr"></small>
+                                    </div>
+                                </div>
+                                <button class="btn-success" onclick="printSticker()"
+                                    style="width: 100%; margin-top: 20px;">
+                                    <i class="fas fa-print"></i> Imprimir / Descargar Diseño
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Preview Area -->
+                        <div class="qr-preview-area"
+                            style="flex: 1; min-width: 300px; display: flex; justify-content: center; align-items: center; background: #000; padding: 20px; border-radius: 10px; border: 1px solid #333; overflow: hidden;">
+                            <div id="sticker-container-preview">
+                                <!-- Styles injected here or global -->
+                                <style>
+                                    .sticker-preview-box {
+                                        position: relative;
+                                        width: 400px;
+                                        height: 400px;
+                                        border-radius: 50%;
+                                        background: linear-gradient(135deg, #2a0845 0%, #6441A5 50%, #2a0845 100%);
+                                        display: flex;
+                                        flex-direction: column;
+                                        align-items: center;
+                                        justify-content: center;
+                                        box-shadow: 0 0 50px rgba(100, 65, 165, 0.5);
+                                        border: 6px solid #D4AF37;
+                                        overflow: hidden;
+                                        font-family: 'Cinzel', serif;
+                                    }
+
+                                    .sticker-preview-box::before {
+                                        content: '';
+                                        position: absolute;
+                                        top: -50%;
+                                        left: -50%;
+                                        width: 200%;
+                                        height: 200%;
+                                        background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
+                                        animation: rotateGlow 10s linear infinite;
+                                    }
+
+                                    .sp-brand {
+                                        font-size: 22px;
+                                        color: #D4AF37;
+                                        text-transform: uppercase;
+                                        letter-spacing: 3px;
+                                        margin-bottom: 15px;
+                                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+                                        z-index: 2;
+                                        font-weight: 700;
+                                    }
+
+                                    .sp-qr-frame {
+                                        background: white;
+                                        padding: 10px;
+                                        border-radius: 15px;
+                                        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+                                        z-index: 2;
+                                        border: 2px solid #D4AF37;
+                                    }
+
+                                    .sp-qr-img {
+                                        width: 160px;
+                                        height: 160px;
+                                        display: block;
+                                        object-fit: contain;
+                                    }
+
+                                    .sp-text {
+                                        margin-top: 15px;
+                                        font-family: sans-serif;
+                                        font-size: 14px;
+                                        color: white;
+                                        z-index: 2;
+                                        text-align: center;
+                                    }
+
+                                    .sp-highlight {
+                                        color: #D4AF37;
+                                        font-weight: 700;
+                                        font-size: 16px;
+                                        display: block;
+                                    }
+                                </style>
+
+                                <div class="sticker-preview-box">
+                                    <div class="stars"
+                                        style="position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: 1;">
+                                        <div
+                                            style="position: absolute; color: #D4AF37; opacity: 0.7; font-size: 20px; top: 15%; left: 20%;">
+                                            ✦</div>
+                                        <div
+                                            style="position: absolute; color: #D4AF37; opacity: 0.7; font-size: 20px; top: 15%; right: 20%;">
+                                            ✦</div>
+                                        <div
+                                            style="position: absolute; color: #D4AF37; opacity: 0.7; font-size: 20px; bottom: 20%; left: 15%;">
+                                            ✦</div>
+                                        <div
+                                            style="position: absolute; color: #D4AF37; opacity: 0.7; font-size: 20px; bottom: 20%; right: 15%;">
+                                            ✦</div>
+                                    </div>
+
+                                    <div class="sp-brand" id="prev-title">Tarot Místico</div>
+                                    <div class="sp-qr-frame">
+                                        <img src="" id="prev-qr-img" class="sp-qr-img" alt="QR">
+                                    </div>
+                                    <div class="sp-text">
+                                        <span id="prev-text-1">Escanea para</span><br>
+                                        <span id="prev-text-2" class="sp-highlight">Descubrir tu Destino</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Load Scripts -->
+    <script src="firebase-config.js"></script>
+    <!-- Bottom Nav for Mobile -->
+    <div class="bottom-nav">
+        <div class="bottom-nav-item active" data-tab="general">
+            <i class="fas fa-cog"></i>
+            <span>General</span>
+        </div>
+        <div class="bottom-nav-item" data-tab="servicios">
+            <i class="fas fa-star"></i>
+            <span>Servicios</span>
+        </div>
+        <div class="bottom-nav-item" data-tab="blog">
+            <i class="fas fa-blog"></i>
+            <span>Blog</span>
+        </div>
+        <div class="bottom-nav-item" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+            <span>Menú</span>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer for Extra Items (Hidden by default, toggled by Menu) -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <h3>Más Opciones</h3>
+            <button onclick="toggleMobileMenu()"
+                style="background:none; border:none; color:var(--burgundy); font-size:20px;"><i
+                    class="fas fa-times"></i></button>
+        </div>
+        <div class="drawer-item" data-tab="sobre-mi" onclick="selectDrawerItem('sobre-mi')">
+            <i class="fas fa-user-astronaut"></i> Sobre Mí
+        </div>
+        <div class="drawer-item" data-tab="testimonios" onclick="selectDrawerItem('testimonios')">
+            <i class="fas fa-comment"></i> Testimonios
+        </div>
+        <div class="drawer-item" data-tab="horoscopos" onclick="selectDrawerItem('horoscopos')">
+            <i class="fas fa-moon"></i> Horóscopos
+        </div>
+        <div class="drawer-item" data-tab="redes" onclick="selectDrawerItem('redes')">
+            <i class="fas fa-hashtag"></i> Redes Sociales
+        </div>
+        <div class="drawer-item" data-tab="qrcode" onclick="selectDrawerItem('qrcode')">
+            <i class="fas fa-qrcode"></i> Código QR
+        </div>
+        <div class="drawer-item" onclick="logout()"
+            style="color:var(--burgundy); margin-top:20px; border-top:1px solid #ccc;">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </div>
+    </div>
+
+    <script src="admin-v4.js"></script>
+    <script>
+        // Mobile layout scripts
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobileDrawer');
+            const overlay = document.getElementById('mobileDrawerOverlay');
+            if (drawer.classList.contains('active')) {
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+            } else {
+                drawer.classList.add('active');
+                overlay.classList.add('active');
+            }
+        }
+
+        function selectDrawerItem(tabId) {
+            // Trigger standard tab switch
+            const event = new Event('click');
+            // Find sidebar button to trigger standard logic or call function directly
+            // We can just emulate a click on a known tab button or update logic.
+            // But checking admin.js, it uses event delegation or listeners on .tab-btn?
+            // "document.querySelectorAll('.tab-btn').forEach..."
+
+            // Let's manually trigger the update like the bottom nav buttons will need to.
+            // Better yet, let's sync them in admin.js. 
+            // For now, simple implementation to link them:
+            const sidebarBtn = document.querySelector(`.sidebar .tab-btn[data-tab="${tabId}"]`);
+            if (sidebarBtn) sidebarBtn.click();
+
+            toggleMobileMenu();
+        }
+
+        // Add listeners to bottom nav items
+        document.querySelectorAll('.bottom-nav-item[data-tab]').forEach(item => {
+            item.addEventListener('click', () => {
+                const tabId = item.dataset.tab;
+                const sidebarBtn = document.querySelector(`.sidebar .tab-btn[data-tab="${tabId}"]`);
+                if (sidebarBtn) sidebarBtn.click();
+            });
+        });
+
+        // Sync active state from Sidebar changes (Observer or hacking the existing click)
+        // Since we can't easily edit the live admin.js closure variables without replacing code, 
+        // we'll rely on the click trigger. 
+        // We also need to update the bottom nav active state when a tab changes.
+        const originalTabBtns = document.querySelectorAll('.sidebar .tab-btn');
+        originalTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+                // Update bottom nav
+                document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
+                const targetNav = document.querySelector(`.bottom-nav-item[data-tab="${tabId}"]`);
+                if (targetNav) targetNav.classList.add('active');
+                else {
+                    // It's in the drawer or not in bottom nav main items
+                    // Maybe highlight 'Menu'?
+                    const menuBtn = document.querySelector('.bottom-nav-item:last-child'); // Assuming last is Menu
+                    // default logic
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

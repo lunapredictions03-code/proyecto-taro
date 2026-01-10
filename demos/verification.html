@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verificación de Diseño - Tarot Místico</title>
+    <!-- Use Google Fonts for correct typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #1a1a2e;
+            color: #fff;
+            font-family: 'Cinzel', serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d4af37;
+        }
+
+        h2 {
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card-container {
+            border: 1px dashed #555;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* STYLE 1: Natural Image (<img> tag) */
+        .style-natural img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #d4af37;
+        }
+
+        /* STYLE 2: CURRENT IMPLEMENTATION (2:3 Aspect Ratio + Cover) */
+        .card-current {
+            aspect-ratio: 2/3;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            position: relative;
+            background-color: #2a1b3d;
+        }
+
+        /* STYLE 3: CONTAIN (Whole image visible, with bars) */
+        .card-contain {
+            aspect-ratio: 2/3;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            position: relative;
+            background-color: #2a1b3d;
+            /* Purple bars */
+        }
+
+        /* STYLE 4: SQUARE (1:1 Ratio - if images are square) */
+        .card-square {
+            aspect-ratio: 1/1;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        /* Overlay Text */
+        .overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            text-shadow: 0 2px 4px #000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Verificación de Cartas</h1>
+    <p>Por favor revisa estas 4 opciones. Las imágenes generadas pueden ser cuadradas o verticales, y esto afecta cómo
+        se ven en el diseño.</p>
+
+    <!-- STYLE 1 -->
+    <h2>1. Tamaño Natural (Sin Recorte)</h2>
+    <p>Así son las imágenes exactamente como se generaron files.</p>
+    <div class="grid style-natural">
+        <div class="card-container">
+            <img src="../images/zodiac/scorpio.png" alt="Escorpio">
+            <p>Escorpio</p>
+        </div>
+        <div class="card-container">
+            <img src="../images/zodiac/aries.png" alt="Aries">
+            <p>Aries</p>
+        </div>
+        <div class="card-container">
+            <img src="../images/zodiac/virgo.png" alt="Virgo">
+            <p>Virgo</p>
+        </div>
+    </div>
+
+    <!-- STYLE 2 -->
+    <h2>2. Tu Sitio Actual (Recortado al Centro)</h2>
+    <p>Formato Tarot (2:3). Si la imagen original es cuadrada, se cortan los lados.</p>
+    <div class="grid">
+        <div class="card-current" style="background-image: url('../images/zodiac/scorpio.png')">
+            <div class="overlay">ESCORPIO</div>
+        </div>
+        <div class="card-current" style="background-image: url('../images/zodiac/aries.png')">
+            <div class="overlay">ARIES</div>
+        </div>
+        <div class="card-current" style="background-image: url('../images/zodiac/virgo.png')">
+            <div class="overlay">VIRGO</div>
+        </div>
+    </div>
+
+    <!-- STYLE 3 -->
+    <h2>3. Ajustado (Sin Recorte + Barras Púrpura)</h2>
+    <p>Formato Tarot (2:3). Se ve toda la imagen, rellenando el espacio sobrante con color.</p>
+    <div class="grid">
+        <div class="card-contain" style="background-image: url('../images/zodiac/scorpio.png')">
+            <div class="overlay">ESCORPIO</div>
+        </div>
+        <div class="card-contain" style="background-image: url('../images/zodiac/aries.png')">
+            <div class="overlay">ARIES</div>
+        </div>
+        <div class="card-contain" style="background-image: url('../images/zodiac/virgo.png')">
+            <div class="overlay">VIRGO</div>
+        </div>
+    </div>
+
+    <!-- STYLE 4 -->
+    <h2>4. Formato Cuadrado (1:1)</h2>
+    <p>Si las imágenes son cuadradas, este formato las muestra completas sin barras.</p>
+    <div class="grid">
+        <div class="card-square" style="background-image: url('../images/zodiac/scorpio.png')">
+            <div class="overlay">ESCORPIO</div>
+        </div>
+        <div class="card-square" style="background-image: url('../images/zodiac/aries.png')">
+            <div class="overlay">ARIES</div>
+        </div>
+        <div class="card-square" style="background-image: url('../images/zodiac/virgo.png')">
+            <div class="overlay">VIRGO</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Previa - Diseño Mystic Glass</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --purple-dark: #1a0b2e;
+            --purple-light: #4b2a6d;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: var(--purple-dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Particles effect background */
+        .preview-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #2d1b4d 0%, #1a0b2e 100%);
+            z-index: -1;
+        }
+
+        .mystic-section {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Profile Image with Golden Frame */
+        .profile-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .decorative-frame {
+            position: relative;
+            width: 380px;
+            height: 480px;
+            border: 2px solid var(--gold);
+            padding: 15px;
+            border-radius: 200px 200px 20px 20px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 185px 185px 10px 10px;
+            filter: brightness(1.1) contrast(1.05);
+        }
+
+        .floating-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -10px;
+            background: linear-gradient(135deg, var(--gold), #f9e29b);
+            color: #1a0b2e;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Glass Content Container */
+        .glass-content {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .subtitle {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0 0 25px 0;
+            line-height: 1.1;
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 40px;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .stat-val {
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .mystic-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .stats-row {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .profile-wrapper {
+                order: -1;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .glass-content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preview-bg"></div>
+
+    <section class="mystic-section">
+        <!-- Left: Image Box -->
+        <div class="profile-wrapper">
+            <div class="decorative-frame">
+                <img src="images/bruja-mistica.png" alt="Luna Predictions" class="profile-img">
+            </div>
+            <div class="floating-badge">
+                <span>15+</span>
+                <small>AÑOS</small>
+            </div>
+        </div>
+
+        <!-- Right: Glass Info -->
+        <div class="glass-content">
+            <span class="subtitle">Guía de Almas</span>
+            <h1 class="title">Luna Predictions</h1>
+            <p class="bio-text">
+                "Mi misión no es predecir tu futuro, sino ayudarte a crearlo. A través de los arcanos, desvelo las
+                energías sutiles que te rodean para que tomes el control de tu destino."
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div>
+                        <span class="stat-val">3,500+</span>
+                        <span class="stat-label">Consultas</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-magic"></i></div>
+                    <div>
+                        <span class="stat-val">800+</span>
+                        <span class="stat-label">Rituales</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

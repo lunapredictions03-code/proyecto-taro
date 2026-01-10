@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Partículas Místicas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a40 0%, #2d1b69 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #D4AF37;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .demo-button {
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #D4AF37 0%, #f0d068 100%);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a0f3f;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.1);
+        }
+
+        .screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.9) 100%);
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+        }
+
+        .screen-overlay.active {
+            animation: overlayPulse 2.5s ease-out forwards;
+        }
+
+        @keyframes overlayPulse {
+            0% {
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .destination {
+            display: none;
+            text-align: center;
+        }
+
+        .destination.show {
+            display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .destination h2 {
+            color: #D4AF37;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .destination p {
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="start">
+        <h1>Opción 4: Partículas Místicas (RECOMENDADA)</h1>
+        <button class="demo-button" onclick="activateParticles()">Click para Ver Animación</button>
+    </div>
+
+    <div class="screen-overlay" id="overlay"></div>
+
+    <div class="destination" id="destination">
+        <h2>✨ ¡Horóscopos! ✨</h2>
+        <p>Explosión de 100+ partículas en espiral - Duración: 2.5s</p>
+        <button class="demo-button" onclick="location.reload()" style="margin-top: 2rem;">Ver Otra Vez</button>
+    </div>
+
+    <script>
+        function activateParticles() {
+            const overlay = document.getElementById('overlay');
+            const start = document.getElementById('start');
+            const destination = document.getElementById('destination');
+
+            overlay.classList.add('active');
+
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Crear 120 partículas en espiral
+            for (let i = 0; i < 120; i++) {
+                setTimeout(() => {
+                    createMysticParticle(centerX, centerY, i, 120);
+                }, i * 15);
+            }
+
+            setTimeout(() => {
+                start.style.opacity = '0';
+                start.style.transition = 'opacity 0.8s';
+            }, 1000);
+
+            setTimeout(() => {
+                start.style.display = 'none';
+            }, 1800);
+
+            setTimeout(() => {
+                destination.classList.add('show');
+            }, 2500);
+        }
+
+        function createMysticParticle(centerX, centerY, index, total) {
+            const particle = document.createElement('div');
+            const angle = (Math.PI * 2 * index) / total;
+            const spiralFactor = index / total;
+            const distance = 50 + index * 8;
+
+            // Colores que varían entre dorado, púrpura y rosa
+            const colors = [
+                'radial-gradient(circle, #D4AF37, #f0d068)',
+                'radial-gradient(circle, #8B5CF6, #a78bfa)',
+                'radial-gradient(circle, #EC4899, #f472b6)'
+            ];
+            const color = colors[index % 3];
+
+            particle.style.cssText = `
+                position: fixed;
+                width: ${6 + Math.random() * 8}px;
+                height: ${6 + Math.random() * 8}px;
+                background: ${color};
+                border-radius: 50%;
+                left: ${centerX}px;
+                top: ${centerY}px;
+                pointer-events: none;
+                z-index: 10000;
+                box-shadow: 0 0 ${15 + Math.random() * 20}px ${index % 3 === 0 ? '#D4AF37' : index % 3 === 1 ? '#8B5CF6' : '#EC4899'};
+            `;
+
+            document.body.appendChild(particle);
+
+            // Movimiento en espiral con efecto vórtice
+            const rotation = spiralFactor * 720; // 2 rotaciones completas
+            const moveX = Math.cos(angle + rotation * Math.PI / 180) * distance * (1 + spiralFactor * 2);
+            const moveY = Math.sin(angle + rotation * Math.PI / 180) * distance * (1 + spiralFactor * 2);
+
+            particle.animate([
+                {
+                    transform: 'translate(0, 0) scale(0.5) rotate(0deg)',
+                    opacity: 0
+                },
+                {
+                    transform: `translate(${moveX * 0.5}px, ${moveY * 0.5}px) scale(1.5) rotate(${rotation * 0.5}deg)`,
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${moveX * 2}px, ${moveY * 2}px) scale(0) rotate(${rotation * 2}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: 2200,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            }).onfinish = () => particle.remove();
+        }
+    </script>
+</body>
+
+</html>

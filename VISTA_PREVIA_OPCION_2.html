@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opción 2 - Zen Card Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --purple-dark: #120821;
+            --white: #ffffff;
+        }
+
+        body {
+            background: var(--purple-dark);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .zen-card {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 40px;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .zen-card::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 32px;
+            pointer-events: none;
+        }
+
+        .profile-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            padding: 5px;
+        }
+
+        .profile-circle::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .bio-text {
+            font-style: italic;
+            line-height: 1.8;
+            opacity: 0.8;
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+        }
+
+        .badges-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .badge i {
+            margin-right: 8px;
+            color: var(--gold);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="zen-card">
+        <div class="profile-circle">
+            <img src="images/bruja-mistica.png" alt="Luna">
+        </div>
+        <h1 class="title">Luna Predictions</h1>
+        <p class="bio-text">
+            "A través de los arcanos, desvelo las energías sutiles que te rodean para que tomes el control de tu
+            destino. Mi misión es darte claridad en el caos."
+        </p>
+        <div class="badges-container">
+            <div class="badge"><i class="fas fa-certificate"></i> 15+ Años</div>
+            <div class="badge"><i class="fas fa-heart"></i> 5.0 Rating</div>
+        </div>
+    </div>
+</body>
+
+</html>

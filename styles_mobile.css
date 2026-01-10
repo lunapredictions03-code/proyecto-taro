@@ -1,0 +1,161 @@
+/* =================================
+   MOBILE STYLES (Bottom Nav & Responsive) - MAIN SITE
+   ================================= */
+
+/* Hide default mobile elements if we are using bottom nav */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: none !important;
+        /* Hide old hamburger */
+    }
+
+    .nav-menu {
+        display: none !important;
+        /* Hide old menu dropdown mechanism */
+    }
+
+    .btn-reserva {
+        display: none !important;
+        /* Hide header button on mobile to save space */
+    }
+
+    body {
+        padding-bottom: 80px;
+        /* Space for bottom nav */
+    }
+}
+
+/* Bottom Nav Container */
+.bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(26, 15, 63, 0.95);
+    /* Deep purple/blue */
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    /* Gold accent */
+    z-index: 1000;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        display: flex;
+    }
+}
+
+.bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 10px;
+    font-family: var(--font-heading);
+    transition: all 0.3s ease;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.bottom-nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.bottom-nav-item.active {
+    color: var(--color-accent);
+}
+
+.bottom-nav-item.active i {
+    color: var(--color-accent);
+    transform: translateY(-3px);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Mobile Drawer (Cosmos Theme) */
+.mobile-drawer-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+}
+
+.mobile-drawer-overlay.active {
+    display: block;
+}
+
+.mobile-drawer {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, #1a0f3f, #2d1b69);
+    border-top: 2px solid var(--color-accent);
+    border-radius: 20px 20px 0 0;
+    padding: 25px;
+    z-index: 2001;
+    transition: bottom 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+}
+
+.mobile-drawer.active {
+    bottom: 0;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.drawer-header h3 {
+    font-family: var(--font-heading);
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.drawer-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: var(--font-body);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+}
+
+.drawer-item i {
+    width: 30px;
+    color: var(--color-purple);
+    font-size: 1.2rem;
+}
+
+.drawer-item:hover,
+.drawer-item:active {
+    color: var(--color-accent);
+    padding-left: 10px;
+}

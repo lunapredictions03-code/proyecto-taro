@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuestas de Navegación Móvil - Grimorio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=MedievalSharp&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1a0f0a;
+            --parchment: #e3d5b8;
+            --gold: #bd9b58;
+            --burgundy: #661010;
+            --ink: #2b1d16;
+            --font-heading: 'MedievalSharp', cursive;
+            --font-body: 'Crimson Text', serif;
+        }
+
+        body {
+            background: #0f0805;
+            font-family: var(--font-body);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px;
+            color: white;
+        }
+
+        h1 {
+            width: 100%;
+            text-align: center;
+            font-family: var(--font-heading);
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .device-mockup {
+            width: 320px;
+            /* Mobile width */
+            height: 640px;
+            background: var(--bg-dark);
+            border: 12px solid #2c1a12;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Mockup Header */
+        .mock-header {
+            background: #2a1b14;
+            padding: 15px;
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mock-header h2 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            color: var(--parchment);
+            margin: 0;
+        }
+
+        /* Mockup Content */
+        .mock-content {
+            flex: 1;
+            padding: 20px;
+            background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 4px);
+            overflow-y: auto;
+            color: var(--parchment);
+        }
+
+        .dummy-card {
+            background: #fdfbf7;
+            color: var(--ink);
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #c0b296;
+            border-radius: 4px;
+        }
+
+        .dummy-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            color: var(--burgundy);
+            margin-bottom: 5px;
+        }
+
+        .dummy-text {
+            font-size: 14px;
+            color: #4a3b32;
+        }
+
+        /* --- OPTION 1: BOTTOM NAV --- */
+        .bottom-nav {
+            background: #23140e;
+            border-top: 2px solid var(--gold);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            color: #a89f91;
+            text-align: center;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+
+        /* --- OPTION 2: DRAWER --- */
+        .drawer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        .drawer {
+            width: 70%;
+            height: 100%;
+            background: #e3d5b8;
+            border-right: 4px solid var(--burgundy);
+            padding: 20px;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .drawer-item {
+            display: block;
+            padding: 15px 0;
+            border-bottom: 1px solid #c0b296;
+            color: var(--ink);
+            font-family: var(--font-heading);
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .drawer-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+            color: var(--burgundy);
+        }
+
+        /* --- OPTION 3: FAB --- */
+        .fab-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .fab-main {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--burgundy);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .fab-mini {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #23140e;
+            border: 1px solid var(--gold);
+            color: var(--parchment);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🔮 Elige tu Grimorio Móvil 🔮</h1>
+
+    <!-- OPTION 1 -->
+    <div style="text-align:center">
+        <h3 style="color:var(--parchment); margin-bottom:10px;">Opción 1: Barra Inferior (App)</h3>
+        <div class="device-mockup">
+            <div class="mock-header">
+                <i class="fas fa-bars" style="opacity:0"></i> <!-- Spacer -->
+                <h2>Luna Admin</h2>
+                <i class="fas fa-user-circle" style="color:var(--gold)"></i>
+            </div>
+            <div class="mock-content">
+                <div class="dummy-card">
+                    <div class="dummy-title">Estadísticas</div>
+                    <div class="dummy-text">Visitas hoy: 1,204</div>
+                </div>
+                <div class="dummy-card">
+                    <div class="dummy-title">Último Post</div>
+                    <div class="dummy-text">Energía de la Luna Llena...</div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item active">
+                    <i class="fas fa-home"></i> Inicio
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-star"></i> Serv
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-feather-alt"></i> Blog
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-cog"></i> Config
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION 2 -->
+    <div style="text-align:center">
+        <h3 style="color:var(--parchment); margin-bottom:10px;">Opción 2: Menú Lateral (Drawer)</h3>
+        <div class="device-mockup">
+            <div class="mock-header">
+                <i class="fas fa-bars" style="color:var(--gold); font-size: 20px;"></i>
+                <h2>Luna Admin</h2>
+                <i class="fas fa-bell" style="color:var(--gold)"></i>
+            </div>
+            <div class="mock-content" style="position:relative">
+                <div class="dummy-card">
+                    <div class="dummy-title">Gestión de Tarot</div>
+                    <div class="dummy-text">Cartas activas: 78</div>
+                </div>
+                <!-- Drawer Open visual -->
+                <div class="drawer-overlay">
+                    <div class="drawer">
+                        <div
+                            style="text-align:center; margin-bottom:20px; border-bottom:2px solid var(--burgundy); padding-bottom:10px;">
+                            <i class="fas fa-moon" style="font-size:40px; color:var(--burgundy)"></i>
+                            <div style="font-family:var(--font-heading); color:var(--ink)">Menú</div>
+                        </div>
+                        <a href="#" class="drawer-item"><i class="fas fa-home"></i> General</a>
+                        <a href="#" class="drawer-item"><i class="fas fa-magic"></i> Servicios</a>
+                        <a href="#" class="drawer-item"><i class="fas fa-feather"></i> Testimonios</a>
+                        <a href="#" class="drawer-item"><i class="fas fa-scroll"></i> Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION 3 -->
+    <div style="text-align:center">
+        <h3 style="color:var(--parchment); margin-bottom:10px;">Opción 3: Botón Flotante (Magia)</h3>
+        <div class="device-mockup">
+            <div class="mock-header">
+                <i class="fas fa-moon" style="color:var(--gold)"></i>
+                <h2>Luna Admin</h2>
+                <i class="fas fa-sign-out-alt" style="color:var(--burgundy)"></i>
+            </div>
+            <div class="mock-content">
+                <div class="dummy-card">
+                    <div class="dummy-title">Horóscopo Diario</div>
+                    <div class="dummy-text">Aries: Energía positiva...</div>
+                </div>
+                <div class="dummy-card" style="height:200px">
+                    <div class="dummy-title">Contenido Principal</div>
+                    <div class="dummy-text">...</div>
+                </div>
+            </div>
+            <div class="fab-container">
+                <div class="fab-main">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <div class="fab-mini">
+                    <i class="fas fa-pen"></i>
+                </div>
+                <div class="fab-mini">
+                    <i class="fas fa-eye"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Rediseño Blog - Luna Predictions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=MedievalSharp&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f9e29f;
+            --bg-dark: #0f0814;
+            --purple-mystic: #2a1b3d;
+            --parchment: #f4e4bc;
+            --ink: #2c1a12;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px;
+            margin: 0;
+        }
+
+        .section-demo {
+            margin-bottom: 80px;
+            padding: 30px;
+            border-top: 2px solid #333;
+        }
+
+        .demo-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        /* --- COMUN --- */
+        .grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .btn-add {
+            padding: 12px 25px;
+            font-family: 'MedievalSharp', cursive;
+            cursor: pointer;
+            margin-bottom: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        /* ==========================================
+           OPCIÓN 1: MYSTICAL DARK (GLASSMORPISM)
+           ========================================== */
+        .opt-dark {
+            background: radial-gradient(circle at center, #1a0b2e 0%, #050208 100%);
+            border-radius: 20px;
+        }
+
+        .opt-dark .blog-card {
+            background: rgba(42, 27, 61, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opt-dark .blog-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .opt-dark .blog-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin: 0 0 10px 0;
+        }
+
+        .opt-dark .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .opt-dark .btn-edit {
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .opt-dark .btn-delete {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* ==========================================
+           OPCIÓN 2: ELEGANT MANUSCRIPT (REFINED)
+           ========================================== */
+        .opt-parchment {
+            background: #2a1a12;
+            padding: 50px;
+            border-radius: 10px;
+        }
+
+        .opt-parchment .blog-card {
+            background: var(--parchment);
+            color: var(--ink);
+            padding: 30px;
+            border: 10px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/dark-wood.png') 30 stretch;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .opt-parchment .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(44, 26, 18, 0.2);
+        }
+
+        .opt-parchment .blog-title {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--ink);
+            padding-bottom: 10px;
+        }
+
+        .opt-parchment .btn-edit {
+            background: #8b0000;
+            color: white;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            font-family: 'MedievalSharp', cursive;
+            border-radius: 0;
+            box-shadow: 2px 2px 0 #000;
+            cursor: pointer;
+        }
+
+        /* ==========================================
+           OPCIÓN 3: TAROT DECK GRID
+           ========================================== */
+        .opt-grid .grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .opt-grid .blog-card {
+            aspect-ratio: 2/3;
+            background: var(--purple-mystic);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .opt-grid .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 60%);
+            z-index: 1;
+        }
+
+        .opt-grid .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .opt-grid .blog-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="text-align: center; color: var(--gold); font-family: 'Cinzel', serif;">Propuestas de Rediseño de Blog
+    </h1>
+
+    <!-- OPCION 1 -->
+    <div class="section-demo opt-dark">
+        <h2 class="demo-title">Opción 1: Mystical Dark (Vanguardista)</h2>
+        <button class="btn-add" style="background: var(--gold); color: #000;">+ AGREGAR POST MÍSTICO</button>
+        <div class="grid">
+            <div class="blog-card">
+                <h3 class="blog-title">El Significado de los Arcanos Mayores</h3>
+                <p>Descubre la profunda sabiduría detrás de las 22 cartas principales del tarot...</p>
+                <div class="actions">
+                    <button class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="blog-card">
+                <h3 class="blog-title">Rituales de Luna Llena</h3>
+                <p>Aprende a potenciar tus lecturas durante las fases lunares...</p>
+                <div class="actions">
+                    <button class="btn-edit"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPCION 2 -->
+    <div class="section-demo opt-parchment">
+        <h2 class="demo-title" style="color: #fff;">Opción 2: Elegant Manuscript (Clásico)</h2>
+        <button class="btn-add" style="background: #2d5a27; color: #fff; border: 2px solid #a4b3a2;">+ NUEVA ENTRADA AL
+            MANUSCRITO</button>
+        <div class="grid">
+            <div class="blog-card">
+                <h3 class="blog-title">El Significado de los Arcanos Mayores</h3>
+                <p><i>Descubre la profunda sabiduría detrás de las 22 cartas principales...</i></p>
+                <div class="actions" style="margin-top: 20px;">
+                    <button class="btn-edit">MODIFICAR</button>
+                    <button class="btn-edit" style="background: #333; margin-left:10px;">BORRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPCION 3 -->
+    <div class="section-demo opt-grid">
+        <h2 class="demo-title">Opción 3: Tarot Deck Grid (Interactivo)</h2>
+        <div class="grid">
+            <div class="blog-card">
+                <div class="card-bg"></div>
+                <div class="content">
+                    <h3 class="blog-title">Arcanos Mayores</h3>
+                    <div class="actions">
+                        <button class="btn-edit"
+                            style="background: var(--gold); color:#000; border:none; padding:5px 10px; border-radius:5px;">Editar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="card-bg"></div>
+                <div class="content">
+                    <h3 class="blog-title">Luna Llena</h3>
+                    <div class="actions">
+                        <button class="btn-edit"
+                            style="background: var(--gold); color:#000; border:none; padding:5px 10px; border-radius:5px;">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

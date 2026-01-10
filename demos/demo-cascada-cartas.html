@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Cascada de Cartas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a40 0%, #2d1b69 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        h1 {
+            color: #D4AF37;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .demo-button {
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #D4AF37 0%, #f0d068 100%);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a0f3f;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.1);
+        }
+
+        .cards-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .falling-card {
+            position: absolute;
+            width: 100px;
+            height: 140px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(236, 72, 153, 0.9) 100%);
+            border-radius: 10px;
+            border: 2px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #D4AF37;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        @keyframes cardFall {
+            0% {
+                transform: translateY(-1000px) rotateX(180deg) rotateZ(45deg);
+                opacity: 0;
+            }
+
+            60% {
+                transform: translateY(20px) rotateX(10deg) rotateZ(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0) rotateX(0) rotateZ(0);
+                opacity: 1;
+            }
+        }
+
+        .destination {
+            display: none;
+            text-align: center;
+        }
+
+        .destination.show {
+            display: block;
+        }
+
+        .destination h2 {
+            color: #D4AF37;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .destination p {
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="start">
+        <h1>Opción 2: Cascada de Cartas Cósmicas</h1>
+        <button class="demo-button" onclick="activateCascade()">Click para Ver Animación</button>
+    </div>
+
+    <div class="cards-container" id="cardsContainer"></div>
+
+    <div class="destination" id="destination">
+        <h2>✨ ¡Horóscopos! ✨</h2>
+        <p>Cascada de cartas 3D - Duración: 2s</p>
+        <button class="demo-button" onclick="location.reload()" style="margin-top: 2rem;">Ver Otra Vez</button>
+    </div>
+
+    <script>
+        const zodiacSymbols = ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓'];
+
+        function activateCascade() {
+            const container = document.getElementById('cardsContainer');
+            const start = document.getElementById('start');
+            const destination = document.getElementById('destination');
+
+            setTimeout(() => {
+                start.style.opacity = '0';
+                start.style.transition = 'opacity 0.5s';
+            }, 100);
+
+            setTimeout(() => {
+                start.style.display = 'none';
+            }, 600);
+
+            // Crear 12 cartas cayendo
+            zodiacSymbols.forEach((symbol, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'falling-card';
+                    card.textContent = symbol;
+                    card.style.left = `${10 + (index * 7)}%`;
+                    card.style.animation = `cardFall 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`;
+                    card.style.top = '50%';
+                    card.style.transform = 'translateY(-50%)';
+
+                    container.appendChild(card);
+
+                    // Crear trail de partículas
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            createTrailParticle(card);
+                        }, i * 50);
+                    }
+                }, index * 100);
+            });
+
+            setTimeout(() => {
+                destination.classList.add('show');
+            }, 2000);
+        }
+
+        function createTrailParticle(card) {
+            const particle = document.createElement('div');
+            const rect = card.getBoundingClientRect();
+            particle.style.cssText = `
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: #D4AF37;
+                border-radius: 50%;
+                left: ${rect.left + 50}px;
+                top: ${rect.top}px;
+                pointer-events: none;
+                z-index: 999;
+                box-shadow: 0 0 20px #D4AF37;
+            `;
+            document.body.appendChild(particle);
+
+            particle.animate([
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(0) translateY(50px)' }
+            ], {
+                duration: 800,
+                easing: 'ease-out'
+            }).onfinish = () => particle.remove();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Cartas de Horóscopo - Descargar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a103d 0%, #2d1b4d 100%);
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #d4af37;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+            border-color: #fff;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-image {
+            border-color: #d4af37;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .card-symbol {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .card-dates {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #d4af37, #f0d068);
+            color: #1a103d;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #f0d068, #d4af37);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-download i {
+            margin-right: 8px;
+        }
+
+        .btn-view {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .instructions h2 {
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .instructions p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-stars"></i> Galería de Cartas de Horóscopo</h1>
+        <p class="subtitle">Todas las cartas actuales disponibles para descargar</p>
+
+        <div class="instructions">
+            <h2><i class="fas fa-info-circle"></i> Instrucciones</h2>
+            <p>
+                <strong>Para descargar una carta:</strong> Haz clic en el botón "Descargar" debajo de la imagen.<br>
+                <strong>Para ver en tamaño completo:</strong> Haz clic en "Ver Original".<br>
+                Las imágenes están en la carpeta: <code>images/zodiac/</code>
+            </p>
+        </div>
+
+        <div class="grid">
+            <!-- Aries -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♈</div>
+                    <h3 class="card-title">ARIES</h3>
+                    <p class="card-dates">21 Mar - 19 Abr</p>
+                    <img class="card-image" src="images/zodiac/aries-card.png" alt="Carta de Aries">
+                    <a href="images/zodiac/aries-card.png" download="aries-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/aries-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tauro -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♉</div>
+                    <h3 class="card-title">TAURO</h3>
+                    <p class="card-dates">20 Abr - 20 May</p>
+                    <img class="card-image" src="images/zodiac/taurus-card.png" alt="Carta de Tauro">
+                    <a href="images/zodiac/taurus-card.png" download="taurus-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/taurus-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Géminis -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♊</div>
+                    <h3 class="card-title">GÉMINIS</h3>
+                    <p class="card-dates">21 May - 20 Jun</p>
+                    <img class="card-image" src="images/zodiac/gemini-card.png" alt="Carta de Géminis">
+                    <a href="images/zodiac/gemini-card.png" download="gemini-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/gemini-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Cáncer -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♋</div>
+                    <h3 class="card-title">CÁNCER</h3>
+                    <p class="card-dates">21 Jun - 22 Jul</p>
+                    <img class="card-image" src="images/zodiac/cancer-card.png" alt="Carta de Cáncer">
+                    <a href="images/zodiac/cancer-card.png" download="cancer-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/cancer-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Leo -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♌</div>
+                    <h3 class="card-title">LEO</h3>
+                    <p class="card-dates">23 Jul - 22 Ago</p>
+                    <img class="card-image" src="images/zodiac/leo-card.png" alt="Carta de Leo">
+                    <a href="images/zodiac/leo-card.png" download="leo-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/leo-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Virgo -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♍</div>
+                    <h3 class="card-title">VIRGO</h3>
+                    <p class="card-dates">23 Ago - 22 Sep</p>
+                    <img class="card-image" src="images/zodiac/virgo-card.png" alt="Carta de Virgo">
+                    <a href="images/zodiac/virgo-card.png" download="virgo-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/virgo-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Libra -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♎</div>
+                    <h3 class="card-title">LIBRA</h3>
+                    <p class="card-dates">23 Sep - 22 Oct</p>
+                    <img class="card-image" src="images/zodiac/libra-card.png" alt="Carta de Libra">
+                    <a href="images/zodiac/libra-card.png" download="libra-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/libra-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Escorpio -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♏</div>
+                    <h3 class="card-title">ESCORPIO</h3>
+                    <p class="card-dates">23 Oct - 21 Nov</p>
+                    <img class="card-image" src="images/zodiac/scorpio-card.png" alt="Carta de Escorpio">
+                    <a href="images/zodiac/scorpio-card.png" download="scorpio-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/scorpio-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sagitario -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♐</div>
+                    <h3 class="card-title">SAGITARIO</h3>
+                    <p class="card-dates">22 Nov - 21 Dic</p>
+                    <img class="card-image" src="images/zodiac/sagittarius-card.png" alt="Carta de Sagitario">
+                    <a href="images/zodiac/sagittarius-card.png" download="sagittarius-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/sagittarius-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Capricornio -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♑</div>
+                    <h3 class="card-title">CAPRICORNIO</h3>
+                    <p class="card-dates">22 Dic - 19 Ene</p>
+                    <img class="card-image" src="images/zodiac/capricorn-card.png" alt="Carta de Capricornio">
+                    <a href="images/zodiac/capricorn-card.png" download="capricorn-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/capricorn-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Acuario -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♒</div>
+                    <h3 class="card-title">ACUARIO</h3>
+                    <p class="card-dates">20 Ene - 18 Feb</p>
+                    <img class="card-image" src="images/zodiac/aquarius-card.png" alt="Carta de Acuario">
+                    <a href="images/zodiac/aquarius-card.png" download="aquarius-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/aquarius-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Piscis -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-symbol">♓</div>
+                    <h3 class="card-title">PISCIS</h3>
+                    <p class="card-dates">19 Feb - 20 Mar</p>
+                    <img class="card-image" src="images/zodiac/pisces-card.png" alt="Carta de Piscis">
+                    <a href="images/zodiac/pisces-card.png" download="pisces-card.png" class="btn-download">
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                    <a href="images/zodiac/pisces-card.png" target="_blank" class="btn-download btn-view">
+                        <i class="fas fa-eye"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><i class="fas fa-moon"></i> Galería de Cartas de Horóscopo - Tarot Místico</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Las imágenes están ubicadas en: <code>images/zodiac/</code></p>
+        </div>
+    </div>
+</body>
+</html>

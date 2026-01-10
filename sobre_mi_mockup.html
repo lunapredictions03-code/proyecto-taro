@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup - Editor Sobre Mí</title>
+    <!-- Reusing existing styles -->
+    <link rel="stylesheet" href="admin-v4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Mockup specific overrides to simulate state */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        #admin-screen {
+            display: flex;
+        }
+
+        .tab-btn[data-tab="sobre-mi"] {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            border-left: 3px solid var(--gold);
+        }
+
+        /* New Styles for Profile Editor */
+        .profile-editor-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .profile-image-section {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .profile-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-input-group {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="admin-screen" class="screen active">
+        <!-- Sidebar (Simulated) -->
+        <div class="sidebar">
+            <div class="sidebar-header"
+                style="padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;">
+                <i class="fas fa-moon" style="font-size: 2rem; color: var(--gold);"></i>
+                <h3 style="margin: 10px 0 0; color: white;">Admin Panel</h3>
+            </div>
+            <button class="tab-btn"> <i class="fas fa-cog"></i> General </button>
+            <button class="tab-btn"> <i class="fas fa-star"></i> Servicios </button>
+            <button class="tab-btn" data-tab="sobre-mi"> <i class="fas fa-user-astronaut"></i> Sobre Mí </button>
+            <!-- NEW -->
+            <button class="tab-btn"> <i class="fas fa-comment"></i> Testimonios </button>
+            <button class="tab-btn"> <i class="fas fa-blog"></i> Blog </button>
+            <button class="tab-btn"> <i class="fas fa-moon"></i> Horóscopos </button>
+        </div>
+
+        <!-- Content -->
+        <div class="admin-content">
+            <div class="tab-content active" style="display: block;">
+                <h3><i class="fas fa-user-astronaut"></i> Editar Perfil "Sobre Mí"</h3>
+                <p class="text-muted">Personaliza tu presentación, foto y estadísticas.</p>
+
+                <div class="profile-editor-grid">
+                    <!-- Left Column: Image -->
+                    <div class="profile-image-section">
+                        <img src="images/bruja-mistica.png" alt="Profile" class="profile-preview">
+                        <button class="btn-secondary" style="width: 100%;">
+                            <i class="fas fa-camera"></i> Cambiar Foto
+                        </button>
+                        <small style="display: block; margin-top: 10px; color: #888;">Recomendado: 500x500px</small>
+                    </div>
+
+                    <!-- Right Column: Info -->
+                    <div class="profile-info-section">
+
+                        <div class="form-section">
+                            <h4>Presentación</h4>
+                            <div class="form-group">
+                                <label>Título / Saludo</label>
+                                <input type="text" class="form-control"
+                                    value="Bienvenido, soy tu guía en el camino de la iluminación espiritual.">
+                            </div>
+
+                            <h4>Estadísticas (Badges)</h4>
+                            <div class="stats-grid">
+                                <div class="stat-input-group">
+                                    <label style="font-size: 0.8rem; color: var(--gold);">Años Exp.</label>
+                                    <input type="text" class="form-control" value="15+">
+                                </div>
+                                <div class="stat-input-group">
+                                    <label style="font-size: 0.8rem; color: var(--gold);">Clientes</label>
+                                    <input type="text" class="form-control" value="3,500+">
+                                </div>
+                                <div class="stat-input-group">
+                                    <label style="font-size: 0.8rem; color: var(--gold);">Calificación</label>
+                                    <input type="text" class="form-control" value="4.9/5">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Full Width Bottom: Biography -->
+                <div class="form-section" style="margin-top: 20px;">
+                    <h4>Biografía</h4>
+                    <div class="form-group">
+                        <label>Párrafo 1 (Introducción)</label>
+                        <textarea class="form-control" rows="3"
+                            style="width: 100%; box-sizing: border-box;">Con más de 15 años de experiencia en la lectura del tarot, he ayudado a miles de personas a encontrar claridad, paz interior y dirección en sus vidas.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Párrafo 2 (Misión/Cierre)</label>
+                        <textarea class="form-control" rows="3"
+                            style="width: 100%; box-sizing: border-box;">Cada lectura es única y personalizada, diseñada para resonar con tu energía y responder a tus preguntas más profundas.</textarea>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: right;">
+                    <button class="btn-success"><i class="fas fa-save"></i> Guardar Cambios</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
